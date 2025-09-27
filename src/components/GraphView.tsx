@@ -53,13 +53,13 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
     }
     
     const nodes: Node[] = [
-      // Central node
+      // Central node - Ashley (Largest, bright star)
       { 
         id: 'ashley', 
         name: data.personal.name, 
         group: 'center', 
-        color: '#7a458c', 
-        size: 25,
+        color: '#E6D7FF', // Bright central star color
+        size: 40, // Much larger central node
         fx: dimensions.width / 2,
         fy: dimensions.height / 2
       },
@@ -67,41 +67,54 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
 
     const links: Link[] = [];
 
-    // Add skills nodes and connections
-    data.skills.forEach(skill => {
+    // Add skills nodes and connections (Major planets)
+    data.skills.forEach((skill, index) => {
+      const skillSize = Math.max(15, skill.level / 3); // 15-30 range based on level
       nodes.push({
         id: skill.id,
         name: skill.name,
         group: 'skills',
-        color: '#9d8cc2',
-        size: Math.max(8, skill.level / 6) // Size based on skill level
+        color: '#9D8DF1', // Bright purple for skills
+        size: skillSize
       });
       
       links.push({
         source: 'ashley',
         target: skill.id,
-        color: '#9d8cc280'
+        color: '#9D8DF180'
       });
     });
 
-    // Add projects nodes and connections
-    data.projects.forEach(project => {
-      const projectSize = project.status === 'completed' ? 14 : project.status === 'in-progress' ? 12 : 10;
+    // Add projects nodes and connections (Medium planets)
+    data.projects.forEach((project, index) => {
+      let projectSize;
+      switch (project.status) {
+        case 'completed':
+          projectSize = 25;
+          break;
+        case 'in-progress':
+          projectSize = 20;
+          break;
+        default:
+          projectSize = 15;
+      }
+      
       nodes.push({
         id: project.id,
         name: project.title,
         group: 'projects',
-        color: '#6f7d96',
+        color: project.status === 'completed' ? '#4ECDC4' : 
+               project.status === 'in-progress' ? '#45B7D1' : '#96CEB4',
         size: projectSize
       });
       
       links.push({
         source: 'ashley',
         target: project.id,
-        color: '#6f7d9680'
+        color: '#4ECDC480'
       });
       
-      // Connect projects to their tech stack
+      // Connect projects to their tech stack with subtle connections
       project.tech.forEach(tech => {
         const skillNode = data.skills.find(skill => 
           skill.name.toLowerCase() === tech.toLowerCase() ||
@@ -112,43 +125,43 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
           links.push({
             source: project.id,
             target: skillNode.id,
-            color: '#c8ccd460'
+            color: '#FFFFFF20' // Very subtle connection lines
           });
         }
       });
     });
 
-    // Add hobbies nodes and connections
-    data.hobbies.forEach(hobby => {
+    // Add hobbies nodes and connections (Small satellites)
+    data.hobbies.forEach((hobby, index) => {
       nodes.push({
         id: hobby.id,
         name: hobby.name,
         group: 'hobbies',
-        color: '#c8ccd4',
-        size: 10
+        color: '#FFB6C1', // Soft pink for hobbies
+        size: 12 // Smaller size for hobbies
       });
       
       links.push({
         source: 'ashley',
         target: hobby.id,
-        color: '#c8ccd480'
+        color: '#FFB6C140'
       });
     });
 
-    // Add contact nodes and connections
-    data.contact.forEach(contact => {
+    // Add contact nodes and connections (Smallest satellites)
+    data.contact.forEach((contact, index) => {
       nodes.push({
         id: contact.id,
         name: contact.name,
         group: 'contact',
-        color: contact.color,
-        size: 8
+        color: '#FFA07A', // Coral color for contact
+        size: 10 // Smallest nodes
       });
       
       links.push({
         source: 'ashley',
         target: contact.id,
-        color: `${contact.color}80`
+        color: '#FFA07A60'
       });
     });
 
@@ -208,36 +221,125 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
       transition={{ duration: 0.6 }}
       className="relative w-full h-screen overflow-hidden"
       style={{ 
-        background: 'radial-gradient(ellipse at center, #1a0d2e 0%, #0a0a0a 70%)',
+        background: 'radial-gradient(ellipse at center, #0F0B1F 0%, #000000 100%)',
         backgroundImage: `
-          radial-gradient(2px 2px at 20px 30px, #eee, transparent),
-          radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
-          radial-gradient(1px 1px at 90px 40px, #fff, transparent),
-          radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
-          radial-gradient(2px 2px at 160px 30px, #fff, transparent)
+          radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,0.9), transparent),
+          radial-gradient(1px 1px at 40px 70px, rgba(157,141,241,0.6), transparent),
+          radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.8), transparent),
+          radial-gradient(1px 1px at 130px 80px, rgba(78,205,196,0.4), transparent),
+          radial-gradient(1px 1px at 160px 30px, rgba(255,182,193,0.5), transparent),
+          radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.7), transparent),
+          radial-gradient(1px 1px at 250px 90px, rgba(157,141,241,0.3), transparent)
         `,
         backgroundRepeat: 'repeat',
-        backgroundSize: '200px 100px'
+        backgroundSize: '300px 200px'
       }}
     >
-      {/* Animated starfield background */}
+      {/* Enhanced animated starfield background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 50 }, (_, i) => (
+        {/* Large twinkling stars */}
+        {Array.from({ length: 15 }, (_, i) => {
+          const colors = ['#FFFFFF', '#E6D7FF', '#9D8DF1', '#4ECDC4', '#FFB6C1'];
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          return (
+            <motion.div
+              key={`large-${i}`}
+              className="absolute rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                width: '3px',
+                height: '3px',
+                backgroundColor: color,
+                boxShadow: `0 0 8px ${color}`,
+              }}
+              animate={{
+                opacity: [0.2, 1, 0.2],
+                scale: [0.8, 1.5, 0.8],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 4,
+                repeat: Infinity,
+                delay: Math.random() * 3,
+                ease: "easeInOut",
+              }}
+            />
+          );
+        })}
+        
+        {/* Medium stars */}
+        {Array.from({ length: 30 }, (_, i) => {
+          const colors = ['#FFFFFF', '#E6D7FF', '#9D8DF1'];
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          return (
+            <motion.div
+              key={`medium-${i}`}
+              className="absolute rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                width: '2px',
+                height: '2px',
+                backgroundColor: color,
+                boxShadow: `0 0 4px ${color}`,
+              }}
+              animate={{
+                opacity: [0.1, 0.8, 0.1],
+                scale: [0.5, 1.2, 0.5],
+              }}
+              transition={{
+                duration: 2 + Math.random() * 3,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+                ease: "easeInOut",
+              }}
+            />
+          );
+        })}
+        
+        {/* Small distant stars */}
+        {Array.from({ length: 80 }, (_, i) => (
           <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full opacity-60"
+            key={`small-${i}`}
+            className="absolute w-1 h-1 bg-white rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
+              opacity: Math.random() * 0.6 + 0.2,
             }}
             animate={{
-              opacity: [0.3, 1, 0.3],
-              scale: [0.5, 1, 0.5],
+              opacity: [0.1, 0.6, 0.1],
+              scale: [0.3, 0.8, 0.3],
             }}
             transition={{
-              duration: 2 + Math.random() * 3,
+              duration: 4 + Math.random() * 6,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: Math.random() * 4,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+        
+        {/* Shooting stars */}
+        {Array.from({ length: 3 }, (_, i) => (
+          <motion.div
+            key={`shooting-${i}`}
+            className="absolute w-1 h-1 bg-white rounded-full"
+            style={{
+              left: '0%',
+              top: `${Math.random() * 50}%`,
+              boxShadow: '0 0 10px #FFFFFF, 2px 0 20px #FFFFFF',
+            }}
+            animate={{
+              x: [0, dimensions.width + 100],
+              y: [0, (Math.random() - 0.5) * 200],
+              opacity: [0, 1, 1, 0],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: i * 8 + Math.random() * 10,
+              ease: "easeOut",
             }}
           />
         ))}
@@ -313,31 +415,109 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
         nodeLabel={(node: Node) => node.name}
         nodeCanvasObject={(node: Node, ctx, globalScale) => {
           const label = node.name;
-          const fontSize = Math.max(12 / globalScale, 3);
-          ctx.font = `${fontSize}px Inter, sans-serif`;
+          const fontSize = Math.max(14 / globalScale, 4);
+          const isHovered = hoveredNode?.id === node.id;
+          const isCenter = node.group === 'center';
+          
+          ctx.font = `${fontSize}px 'Inter', sans-serif`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
 
-          // Draw node circle
+          // Add outer glow for all nodes
+          ctx.shadowColor = node.color;
+          ctx.shadowBlur = isHovered ? 25 : (isCenter ? 20 : 10);
+          
+          // Draw main node circle with gradient
+          const gradient = ctx.createRadialGradient(
+            node.x! - node.size * 0.3, 
+            node.y! - node.size * 0.3, 
+            0,
+            node.x!, 
+            node.y!, 
+            node.size
+          );
+          
+          if (isCenter) {
+            gradient.addColorStop(0, '#FFFFFF');
+            gradient.addColorStop(0.3, node.color);
+            gradient.addColorStop(1, '#9D8DF1');
+          } else {
+            gradient.addColorStop(0, '#FFFFFF');
+            gradient.addColorStop(0.4, node.color);
+            gradient.addColorStop(1, node.color + '80');
+          }
+          
           ctx.beginPath();
           ctx.arc(node.x!, node.y!, node.size, 0, 2 * Math.PI, false);
-          ctx.fillStyle = node.color;
+          ctx.fillStyle = gradient;
           ctx.fill();
-
-          // Add glow effect for hovered node
-          if (hoveredNode?.id === node.id) {
-            ctx.shadowColor = node.color;
-            ctx.shadowBlur = 20;
+          
+          // Add inner highlight
+          const highlightGradient = ctx.createRadialGradient(
+            node.x! - node.size * 0.5, 
+            node.y! - node.size * 0.5, 
+            0,
+            node.x! - node.size * 0.3, 
+            node.y! - node.size * 0.3, 
+            node.size * 0.6
+          );
+          highlightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+          highlightGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+          
+          ctx.beginPath();
+          ctx.arc(node.x! - node.size * 0.2, node.y! - node.size * 0.2, node.size * 0.4, 0, 2 * Math.PI, false);
+          ctx.fillStyle = highlightGradient;
+          ctx.fill();
+          
+          // Enhanced glow effect for hovered node
+          if (isHovered) {
+            ctx.shadowColor = '#FFFFFF';
+            ctx.shadowBlur = 35;
             ctx.beginPath();
-            ctx.arc(node.x!, node.y!, node.size + 2, 0, 2 * Math.PI, false);
-            ctx.fillStyle = node.color;
-            ctx.fill();
-            ctx.shadowBlur = 0;
+            ctx.arc(node.x!, node.y!, node.size + 3, 0, 2 * Math.PI, false);
+            ctx.strokeStyle = node.color;
+            ctx.lineWidth = 2;
+            ctx.stroke();
           }
-
-          // Draw label
-          ctx.fillStyle = node.group === 'center' ? '#ffffff' : '#333333';
-          ctx.fillText(label, node.x!, node.y! + node.size + fontSize + 2);
+          
+          // Reset shadow for text
+          ctx.shadowBlur = 0;
+          
+          // Draw label with improved styling
+          const labelY = node.y! + node.size + fontSize + 8;
+          
+          // Text shadow for better readability
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+          ctx.fillText(label, node.x! + 1, labelY + 1);
+          
+          // Main text
+          ctx.fillStyle = isCenter ? '#FFFFFF' : '#E6D7FF';
+          ctx.fillText(label, node.x!, labelY);
+          
+          // Add status indicator for projects
+          if (node.group === 'projects') {
+            const projectData = data?.projects.find(p => p.id === node.id);
+            if (projectData) {
+              ctx.beginPath();
+              ctx.arc(node.x! + node.size * 0.7, node.y! - node.size * 0.7, 4, 0, 2 * Math.PI, false);
+              
+              if (projectData.status === 'completed') {
+                ctx.fillStyle = '#00FF88';
+              } else if (projectData.status === 'in-progress') {
+                ctx.fillStyle = '#FFB347';
+              } else {
+                ctx.fillStyle = '#87CEEB';
+              }
+              
+              ctx.fill();
+              
+              // Status indicator glow
+              ctx.shadowColor = ctx.fillStyle;
+              ctx.shadowBlur = 8;
+              ctx.fill();
+              ctx.shadowBlur = 0;
+            }
+          }
         }}
         linkColor={(link: Link) => link.color}
         linkWidth={2}
@@ -346,12 +526,40 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
         onNodeDrag={handleNodeDrag}
         onNodeDragEnd={handleNodeDragEnd}
         d3ForceConfig={{
-          charge: -300,
-          link: { distance: 100 },
-          center: { x: dimensions.width / 2, y: dimensions.height / 2 }
+          charge: -800, // Stronger repulsion for better spreading
+          link: { 
+            distance: (link: any) => {
+              // Variable distances based on node types
+              const sourceNode = graphData.nodes.find(n => n.id === link.source.id || n.id === link.source);
+              const targetNode = graphData.nodes.find(n => n.id === link.target.id || n.id === link.target);
+              
+              if (sourceNode?.group === 'center') {
+                if (targetNode?.group === 'skills') return 150;
+                if (targetNode?.group === 'projects') return 200;
+                if (targetNode?.group === 'hobbies') return 120;
+                if (targetNode?.group === 'contact') return 100;
+              }
+              return 80; // Secondary connections
+            },
+            strength: 0.3
+          },
+          center: { 
+            x: dimensions.width / 2, 
+            y: dimensions.height / 2,
+            strength: 0.1 // Gentle center force
+          },
+          collision: {
+            radius: (node: any) => node.size + 10,
+            strength: 0.8
+          }
         }}
-        cooldownTicks={100}
-        onEngineStop={() => fgRef.current?.zoomToFit(400)}
+        cooldownTicks={200}
+        onEngineStop={() => {
+          // Gentle zoom to fit with padding
+          if (fgRef.current) {
+            setTimeout(() => fgRef.current.zoomToFit(600, 50), 100);
+          }
+        }}
       />
 
       {/* Legend */}
@@ -359,21 +567,27 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.7 }}
-        className="absolute bottom-6 right-6 z-20 bg-white/20 backdrop-blur-sm p-4 rounded-2xl shadow-lg"
+        className="absolute bottom-6 right-6 z-20 bg-black/40 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-purple-500/20"
       >
-        <h4 className="text-sm font-bold text-gray-800 mb-3">Legend</h4>
+        <h4 className="text-sm font-bold text-white mb-3">Galaxy Map</h4>
         {[
-          { group: 'Skills', color: '#9d8cc2' },
-          { group: 'Projects', color: '#6f7d96' },
-          { group: 'Hobbies', color: '#c8ccd4' },
-          { group: 'Contact', color: '#7a458c' }
-        ].map(({ group, color }) => (
-          <div key={group} className="flex items-center gap-2 mb-1">
+          { group: 'Skills', color: '#9D8DF1', description: 'Major Planets' },
+          { group: 'Projects', color: '#4ECDC4', description: 'Active Systems' },
+          { group: 'Hobbies', color: '#FFB6C1', description: 'Small Moons' },
+          { group: 'Contact', color: '#FFA07A', description: 'Communication Beacons' }
+        ].map(({ group, color, description }) => (
+          <div key={group} className="flex items-center gap-2 mb-2">
             <div 
               className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: color }}
+              style={{ 
+                backgroundColor: color,
+                boxShadow: `0 0 6px ${color}`
+              }}
             />
-            <span className="text-xs text-gray-700">{group}</span>
+            <div className="flex flex-col">
+              <span className="text-xs text-white font-medium">{group}</span>
+              <span className="text-xs text-purple-200/70">{description}</span>
+            </div>
           </div>
         ))}
       </motion.div>
