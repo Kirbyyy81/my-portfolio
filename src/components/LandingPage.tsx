@@ -78,7 +78,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             onClick={onToggle}
             className="group cursor-pointer transition-all duration-500 hover:scale-105"
           >
-            <h1><TypingAnimation text="ASHLEY'S WORLD" className="text-8xl md:text-9xl font-black tracking-tighter leading-none bg-gradient-to-r from-purple-900 to-purple-600 bg-clip-text text-transparent hover:from-purple-800 hover:to-purple-500 transition-all duration-500" /></h1>
+            <h1><TypingAnimation text="ASHLEY'S WORLD" className="font-chewy text-8xl md:text-9xl font-black tracking-tighter leading-none bg-gradient-to-r from-purple-900 to-purple-600 bg-clip-text text-transparent hover:from-purple-800 hover:to-purple-500 transition-all duration-500" /></h1>
           </button>
           <motion.p
             initial={{ opacity: 0 }}
@@ -336,7 +336,7 @@ import SpotlightCard from './SpotlightCard';
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h2 className="text-3xl font-extrabold text-gray-800 sm:text-4xl">
-                <span role="img" aria-label="sparkles">⚡</span> AI Experiments
+                <span role="img" aria-label="sparkles"></span> AI Experiments
               </h2>
               <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
                 “Every polished star was once a chaotic nebula. Here are the many AI-generated prototypes that shaped my final portfolio — experiments, failures, and stepping stones toward this galaxy you’re exploring now.”
