@@ -77,7 +77,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             onClick={onToggle}
             className="group cursor-pointer transition-all duration-500 hover:scale-105"
           >
-            <TypingAnimation text="ASHLEY'S WORLD" className="text-8xl md:text-9xl font-black tracking-tighter leading-none bg-gradient-to-r from-purple-900 to-purple-600 bg-clip-text text-transparent hover:from-purple-800 hover:to-purple-500 transition-all duration-500 font-chewy" />
+            <TypingAnimation text="ASHLEY'S WORLD" className="text-8xl md:text-9xl font-black tracking-tighter leading-none bg-gradient-to-r from-purple-900 to-purple-600 bg-clip-text text-transparent hover:from-purple-800 hover:to-purple-500 transition-all duration-500" />
           </button>
           <motion.p
             initial={{ opacity: 0 }}

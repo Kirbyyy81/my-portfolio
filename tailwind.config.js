@@ -5,7 +5,12 @@ export default {
     extend: {
       fontFamily: {
         chewy: ['Chewy', 'cursive'],
+        montserrat: ['Montserrat', 'sans-serif'],
       },
+    },
+    fontFamily: {
+      sans: ['montserrat', 'sans-serif'],
+      serif: ['chewy', 'cursive'],
     },
   },
   plugins: [],
