@@ -78,7 +78,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             onClick={onToggle}
             className="group cursor-pointer transition-all duration-500 hover:scale-105"
           >
-            <h1><TypingAnimation text="ASHLEY'S WORLD" className="font-chewy text-8xl md:text-9xl font-black tracking-tighter leading-none bg-gradient-to-r from-purple-900 to-purple-600 bg-clip-text text-transparent hover:from-purple-800 hover:to-purple-500 transition-all duration-500" /></h1>
+            <h1><TypingAnimation text="ASHLEY'S WORLD" className="font-chewy tracking-wider text-8xl md:text-9xl font-black tracking-tighter leading-none bg-gradient-to-r from-purple-900 to-purple-600 bg-clip-text text-transparent hover:from-purple-800 hover:to-purple-500 transition-all duration-500" /></h1>
           </button>
           <motion.p
             initial={{ opacity: 0 }}
@@ -334,9 +334,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
                 <span role="img" aria-label="sparkles"></span> AI Experiments
               </h2>
               <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-                “Every polished star was once a chaotic nebula. Here are the many AI-generated prototypes that shaped my final portfolio — experiments, failures, and stepping stones toward this galaxy you’re exploring now.”
+                This portfolio was built through AI-driven experiments — a journey of inspirations, failed prototypes, and iterations. Here, I’ve gathered the past attempts that shaped the final design, showcasing the creative process behind Ashley’s World.
               </p>
-              <p className="mt-4 text-sm text-purple-600">12 failed universes before this one.</p>
             </div>
             <div className="mt-12">
               <div className="flex overflow-x-auto space-x-8 pb-8">
