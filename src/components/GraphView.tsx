@@ -71,15 +71,39 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
 
     const links: Link[] = [];
 
+    // Pre-calc counts for even angular distribution per ring
+    const counts = {
+      skills: data.skills.length,
+      projects: data.projects.length,
+      hobbies: data.hobbies.length,
+      contact: data.contact.length
+    };
+    const indices = { skills: 0, projects: 0, hobbies: 0, contact: 0 } as Record<string, number>;
+
+    const placeOnRing = (group: 'skills'|'projects'|'hobbies'|'contact', radius: number) => {
+      const i = indices[group]++;
+      const n = Math.max(1, counts[group]);
+      // Stagger rings with slight offset so groups don't align
+      const baseOffset = { skills: 0, projects: Math.PI/8, hobbies: Math.PI/4, contact: (3*Math.PI)/8 }[group];
+      const angle = baseOffset + (i / n) * Math.PI * 2;
+      return {
+        x: centerX + radius * Math.cos(angle),
+        y: centerY + radius * Math.sin(angle)
+      };
+    };
+
     // Add skills nodes and connections (Major planets)
-    data.skills.forEach((skill, index) => {
+    data.skills.forEach((skill) => {
       const skillSize = Math.max(15, skill.level / 3); // 15-30 range based on level
+      const pos = placeOnRing('skills', 220);
       nodes.push({
         id: skill.id,
         name: skill.name,
         group: 'skills',
         color: '#9D8DF1', // Bright purple for skills
-        size: skillSize
+        size: skillSize,
+        x: pos.x,
+        y: pos.y
       });
       
       links.push({
@@ -90,7 +114,7 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
     });
 
     // Add projects nodes and connections (Medium planets)
-    data.projects.forEach((project, index) => {
+    data.projects.forEach((project) => {
       let projectSize;
       switch (project.status) {
         case 'completed':
@@ -102,14 +126,16 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
         default:
           projectSize = 15;
       }
-      
+      const pos = placeOnRing('projects', 320);
       nodes.push({
         id: project.id,
         name: project.title,
         group: 'projects',
         color: project.status === 'completed' ? '#4ECDC4' : 
                project.status === 'in-progress' ? '#45B7D1' : '#96CEB4',
-        size: projectSize
+        size: projectSize,
+        x: pos.x,
+        y: pos.y
       });
       
       links.push({
@@ -136,13 +162,16 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
     });
 
     // Add hobbies nodes and connections (Small satellites)
-    data.hobbies.forEach((hobby, index) => {
+    data.hobbies.forEach((hobby) => {
+      const pos = placeOnRing('hobbies', 380);
       nodes.push({
         id: hobby.id,
         name: hobby.name,
         group: 'hobbies',
         color: '#FFB6C1', // Soft pink for hobbies
-        size: 12 // Smaller size for hobbies
+        size: 12, // Smaller size for hobbies
+        x: pos.x,
+        y: pos.y
       });
       
       links.push({
@@ -153,13 +182,16 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
     });
 
     // Add contact nodes and connections (Smallest satellites)
-    data.contact.forEach((contact, index) => {
+    data.contact.forEach((contact) => {
+      const pos = placeOnRing('contact', 460);
       nodes.push({
         id: contact.id,
         name: contact.name,
         group: 'contact',
         color: '#FFA07A', // Coral color for contact
-        size: 10 // Smallest nodes
+        size: 10, // Smallest nodes
+        x: pos.x,
+        y: pos.y
       });
       
       links.push({
@@ -283,15 +315,15 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
       transition={{ duration: 0.6 }}
       className="relative w-full h-screen overflow-hidden"
       style={{ 
-        background: 'radial-gradient(ellipse at center, #0F0B1F 0%, #000000 100%)',
+        background: 'radial-gradient(ellipse at center, #0A0F1F 0%, #000010 100%)',
         backgroundImage: `
-          radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,0.9), transparent),
-          radial-gradient(1px 1px at 40px 70px, rgba(157,141,241,0.6), transparent),
-          radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.8), transparent),
-          radial-gradient(1px 1px at 130px 80px, rgba(78,205,196,0.4), transparent),
-          radial-gradient(1px 1px at 160px 30px, rgba(255,182,193,0.5), transparent),
-          radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.7), transparent),
-          radial-gradient(1px 1px at 250px 90px, rgba(157,141,241,0.3), transparent)
+          radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,0.7), transparent),
+          radial-gradient(1px 1px at 40px 70px, rgba(157,141,241,0.5), transparent),
+          radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.6), transparent),
+          radial-gradient(1px 1px at 130px 80px, rgba(78,205,196,0.3), transparent),
+          radial-gradient(1px 1px at 160px 30px, rgba(255,182,193,0.4), transparent),
+          radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.5), transparent),
+          radial-gradient(1px 1px at 250px 90px, rgba(157,141,241,0.25), transparent)
         `,
         backgroundRepeat: 'repeat',
         backgroundSize: '300px 200px'
@@ -471,7 +503,7 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
         graphData={graphData}
         width={dimensions.width}
         height={dimensions.height}
-        backgroundColor="transparent"
+        backgroundColor="#050816"
         nodeColor={(node: Node) => node.color}
         nodeVal={(node: Node) => node.size}
         nodeLabel={(node: Node) => node.name}
@@ -627,9 +659,15 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
         }}
         cooldownTicks={200}
         onEngineStop={() => {
-          // Gentle zoom to fit with padding
-          if (fgRef.current) {
-            setTimeout(() => fgRef.current.zoomToFit(600, 50), 100);
+          // Keep central node at center; center camera instead of zoom-to-fit
+          const fg = fgRef.current;
+          if (fg) {
+            const cx = dimensions.width / 2;
+            const cy = dimensions.height / 2;
+            setTimeout(() => {
+              fg.centerAt(cx, cy, 600);
+              fg.zoom(1, 600);
+            }, 150);
           }
         }}
       />
