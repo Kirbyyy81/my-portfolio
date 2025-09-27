@@ -414,6 +414,11 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
         nodeVal={(node: Node) => node.size}
         nodeLabel={(node: Node) => node.name}
         nodeCanvasObject={(node: Node, ctx, globalScale) => {
+          // Safety check for node positions and size
+          if (!node.x || !node.y || !isFinite(node.x) || !isFinite(node.y) || !node.size || !isFinite(node.size)) {
+            return; // Skip rendering if positions or size aren't ready
+          }
+          
           const label = node.name;
           const fontSize = Math.max(14 / globalScale, 4);
           const isHovered = hoveredNode?.id === node.id;
@@ -429,11 +434,11 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
           
           // Draw main node circle with gradient
           const gradient = ctx.createRadialGradient(
-            node.x! - node.size * 0.3, 
-            node.y! - node.size * 0.3, 
+            node.x - node.size * 0.3, 
+            node.y - node.size * 0.3, 
             0,
-            node.x!, 
-            node.y!, 
+            node.x, 
+            node.y, 
             node.size
           );
           
@@ -448,24 +453,24 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
           }
           
           ctx.beginPath();
-          ctx.arc(node.x!, node.y!, node.size, 0, 2 * Math.PI, false);
+          ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI, false);
           ctx.fillStyle = gradient;
           ctx.fill();
           
           // Add inner highlight
           const highlightGradient = ctx.createRadialGradient(
-            node.x! - node.size * 0.5, 
-            node.y! - node.size * 0.5, 
+            node.x - node.size * 0.5, 
+            node.y - node.size * 0.5, 
             0,
-            node.x! - node.size * 0.3, 
-            node.y! - node.size * 0.3, 
+            node.x - node.size * 0.3, 
+            node.y - node.size * 0.3, 
             node.size * 0.6
           );
           highlightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
           highlightGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
           
           ctx.beginPath();
-          ctx.arc(node.x! - node.size * 0.2, node.y! - node.size * 0.2, node.size * 0.4, 0, 2 * Math.PI, false);
+          ctx.arc(node.x - node.size * 0.2, node.y - node.size * 0.2, node.size * 0.4, 0, 2 * Math.PI, false);
           ctx.fillStyle = highlightGradient;
           ctx.fill();
           
@@ -474,7 +479,7 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
             ctx.shadowColor = '#FFFFFF';
             ctx.shadowBlur = 35;
             ctx.beginPath();
-            ctx.arc(node.x!, node.y!, node.size + 3, 0, 2 * Math.PI, false);
+            ctx.arc(node.x, node.y, node.size + 3, 0, 2 * Math.PI, false);
             ctx.strokeStyle = node.color;
             ctx.lineWidth = 2;
             ctx.stroke();
@@ -484,22 +489,22 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
           ctx.shadowBlur = 0;
           
           // Draw label with improved styling
-          const labelY = node.y! + node.size + fontSize + 8;
+          const labelY = node.y + node.size + fontSize + 8;
           
           // Text shadow for better readability
           ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-          ctx.fillText(label, node.x! + 1, labelY + 1);
+          ctx.fillText(label, node.x + 1, labelY + 1);
           
           // Main text
           ctx.fillStyle = isCenter ? '#FFFFFF' : '#E6D7FF';
-          ctx.fillText(label, node.x!, labelY);
+          ctx.fillText(label, node.x, labelY);
           
           // Add status indicator for projects
           if (node.group === 'projects') {
             const projectData = data?.projects.find(p => p.id === node.id);
             if (projectData) {
               ctx.beginPath();
-              ctx.arc(node.x! + node.size * 0.7, node.y! - node.size * 0.7, 4, 0, 2 * Math.PI, false);
+              ctx.arc(node.x + node.size * 0.7, node.y - node.size * 0.7, 4, 0, 2 * Math.PI, false);
               
               if (projectData.status === 'completed') {
                 ctx.fillStyle = '#00FF88';
