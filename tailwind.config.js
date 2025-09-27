@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        metamorphous: ['Metamorphous', 'cursive'],
+        chewy: ['Chewy', 'cursive'],
       },
     },
   },
