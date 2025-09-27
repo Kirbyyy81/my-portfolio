@@ -326,11 +326,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             </div>
           </motion.div>
         </motion.section>
-import experimentsData from '../data/experiments.json';
-import SpotlightCard from './SpotlightCard';
-
-// ... (rest of the component)
-
         {/* AI Experiments Section */}
         <div id="experiments" className="py-16 sm:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -364,6 +359,4 @@ import SpotlightCard from './SpotlightCard';
     </motion.div>
   );
 };
-};
-
 export default LandingPage;
