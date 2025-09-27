@@ -265,6 +265,12 @@
       "name": "Contact",
       "href": "#contact",
       "description": "Get in touch with me"
+    },
+    {
+      "id": "experiments",
+      "name": "Prototype Galaxy",
+      "href": "#experiments",
+      "description": "Explore the AI-generated prototypes"
     }
   ],
 

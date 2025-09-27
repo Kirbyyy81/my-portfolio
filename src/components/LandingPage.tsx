@@ -4,6 +4,7 @@ import { Github, Linkedin, Mail, Twitter, Sparkles, Star, Heart } from 'lucide-r
 import FloatingShapes from './FloatingShapes';
 import CustomIllustration from './CustomIllustration';
 import usePortfolioData from '../hooks/usePortfolioData';
+import AiExperiments from './AiExperiments';
 
 interface LandingPageProps {
   onToggle: () => void;
@@ -325,6 +326,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             </div>
           </motion.div>
         </motion.section>
+        {/* AI Experiments Section */}
+        <AiExperiments />
       </main>
     </motion.div>
   );
