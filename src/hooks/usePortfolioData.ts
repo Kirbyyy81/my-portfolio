@@ -108,9 +108,8 @@ const usePortfolioData = () => {
     const loadPortfolioData = async () => {
       try {
         setLoading(true);
-        // In a real application, this could be an API call
-        // For now, we'll import the JSON directly
-        const response = await fetch('/src/data/portfolio.json');
+        // Fetch from public directory for proper deployment
+        const response = await fetch('/portfolio.json');
         
         if (!response.ok) {
           throw new Error('Failed to load portfolio data');

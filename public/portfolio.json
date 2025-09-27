@@ -1,0 +1,291 @@
+{
+  "personal": {
+    "name": "Ashley Chan",
+    "title": "Computer Science Student",
+    "greeting": "안녕하세요, I'm Ashley ~",
+    "bio": "A passionate computer science student who loves blending creativity with code. I build digital experiences that are both beautiful and functional, always with a touch of playfulness and innovation.",
+    "location": "Toronto, Canada",
+    "avatar": "👩‍💻"
+  },
+  
+  "skills": [
+    {
+      "id": "react",
+      "name": "React",
+      "level": 90,
+      "color": "#7a458c",
+      "category": "Frontend",
+      "years": 3,
+      "description": "Building modern, interactive user interfaces"
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript", 
+      "level": 85,
+      "color": "#9d8cc2",
+      "category": "Frontend",
+      "years": 2,
+      "description": "Type-safe JavaScript development"
+    },
+    {
+      "id": "nodejs",
+      "name": "Node.js",
+      "level": 80,
+      "color": "#6f7d96", 
+      "category": "Backend",
+      "years": 2,
+      "description": "Server-side JavaScript applications"
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "level": 88,
+      "color": "#7a458c",
+      "category": "Backend",
+      "years": 4,
+      "description": "Data science and web development"
+    },
+    {
+      "id": "uiux",
+      "name": "UI/UX Design",
+      "level": 75,
+      "color": "#9d8cc2",
+      "category": "Design",
+      "years": 2,
+      "description": "Creating intuitive user experiences"
+    },
+    {
+      "id": "graphql",
+      "name": "GraphQL",
+      "level": 70,
+      "color": "#6f7d96",
+      "category": "Backend", 
+      "years": 1,
+      "description": "Flexible API query language"
+    },
+    {
+      "id": "figma",
+      "name": "Figma",
+      "level": 85,
+      "color": "#c8ccd4",
+      "category": "Design",
+      "years": 3,
+      "description": "Design and prototyping tool"
+    },
+    {
+      "id": "java",
+      "name": "Java",
+      "level": 78,
+      "color": "#7a458c",
+      "category": "Backend",
+      "years": 3,
+      "description": "Object-oriented programming"
+    }
+  ],
+
+  "projects": [
+    {
+      "id": "ecotracker",
+      "title": "EcoTracker",
+      "description": "Sustainable living app with gamification features that helps users track their environmental impact and build eco-friendly habits through engaging challenges and rewards.",
+      "shortDescription": "Sustainable living app with gamification",
+      "tech": ["React", "Node.js", "MongoDB", "Chart.js"],
+      "color": "#7a458c",
+      "status": "completed",
+      "year": 2024,
+      "duration": "3 months",
+      "github": "https://github.com/ashley-chan/ecotracker",
+      "demo": "https://ecotracker-demo.netlify.app",
+      "image": "/projects/ecotracker.jpg",
+      "highlights": ["Reduced user carbon footprint by 25%", "10k+ active users", "Featured in Green Tech Magazine"]
+    },
+    {
+      "id": "codecollab",
+      "title": "CodeCollab",
+      "description": "Real-time collaborative coding platform that enables multiple developers to work together seamlessly with live cursor tracking, voice chat, and integrated version control.",
+      "shortDescription": "Real-time collaborative coding platform",
+      "tech": ["TypeScript", "WebSocket", "Redis", "Docker"],
+      "color": "#9d8cc2",
+      "status": "in-progress",
+      "year": 2024,
+      "duration": "6 months",
+      "github": "https://github.com/ashley-chan/codecollab",
+      "demo": "https://codecollab-beta.vercel.app",
+      "image": "/projects/codecollab.jpg",
+      "highlights": ["Real-time collaboration", "50ms latency", "Integrated voice chat"]
+    },
+    {
+      "id": "artgen",
+      "title": "ArtGen AI",
+      "description": "Machine learning powered art generator that creates unique digital artwork based on user prompts, style preferences, and mood inputs using advanced neural networks.",
+      "shortDescription": "Machine learning powered art generator",
+      "tech": ["Python", "TensorFlow", "React", "FastAPI"],
+      "color": "#6f7d96",
+      "status": "completed",
+      "year": 2023,
+      "duration": "4 months",
+      "github": "https://github.com/ashley-chan/artgen-ai",
+      "demo": "https://artgen-ai.herokuapp.com",
+      "image": "/projects/artgen.jpg",
+      "highlights": ["Generated 100k+ unique artworks", "AI-powered creativity", "Featured in TechCrunch"]
+    },
+    {
+      "id": "cosmicplanner",
+      "title": "Cosmic Planner",
+      "description": "Space-themed productivity app that gamifies daily planning with cosmic rewards, constellation goal tracking, and a beautiful starfield interface.",
+      "shortDescription": "Space-themed productivity planner",
+      "tech": ["React Native", "Firebase", "Framer Motion"],
+      "color": "#c8ccd4",
+      "status": "prototype",
+      "year": 2024,
+      "duration": "2 months",
+      "github": "https://github.com/ashley-chan/cosmic-planner",
+      "image": "/projects/cosmic-planner.jpg",
+      "highlights": ["Mobile-first design", "Gamified planning", "Beautiful animations"]
+    }
+  ],
+
+  "hobbies": [
+    {
+      "id": "gaming",
+      "name": "Gaming",
+      "description": "Love playing indie games and RPGs, especially titles with unique storytelling and beautiful pixel art.",
+      "color": "#c8ccd4",
+      "icon": "🎮",
+      "favorites": ["Stardew Valley", "Hollow Knight", "Spiritfarer"],
+      "category": "entertainment"
+    },
+    {
+      "id": "digital-art", 
+      "name": "Digital Art",
+      "description": "Creating whimsical illustrations and character designs, often inspired by space themes and cute aesthetics.",
+      "color": "#9d8cc2",
+      "icon": "🎨",
+      "tools": ["Procreate", "Figma", "Adobe Illustrator"],
+      "category": "creative"
+    },
+    {
+      "id": "music",
+      "name": "Music",
+      "description": "Playing piano and discovering new indie artists, particularly drawn to lo-fi and ambient electronic music.",
+      "color": "#6f7d96", 
+      "icon": "🎵",
+      "instruments": ["Piano", "Ukulele"],
+      "category": "creative"
+    },
+    {
+      "id": "cooking",
+      "name": "Cooking",
+      "description": "Experimenting with Korean and fusion recipes, always trying to make meals as colorful as my code!",
+      "color": "#7a458c",
+      "icon": "👨‍🍳",
+      "specialties": ["Korean cuisine", "Vegetarian dishes", "Baking"],
+      "category": "lifestyle"
+    },
+    {
+      "id": "stargazing",
+      "name": "Stargazing",
+      "description": "Finding peace under the night sky and learning about constellations - it inspires my cosmic-themed projects.",
+      "color": "#c8ccd4",
+      "icon": "✨",
+      "equipment": ["Telescope", "Star map apps"],
+      "category": "nature"
+    },
+    {
+      "id": "reading",
+      "name": "Reading",
+      "description": "Diving into sci-fi novels and tech blogs, always curious about future possibilities and emerging technologies.",
+      "color": "#9d8cc2",
+      "icon": "📚", 
+      "genres": ["Science Fiction", "Tech blogs", "Design books"],
+      "category": "learning"
+    }
+  ],
+
+  "contact": [
+    {
+      "id": "github",
+      "name": "GitHub",
+      "value": "ashley-chan",
+      "url": "https://github.com/ashley-chan",
+      "color": "#7a458c",
+      "icon": "Github",
+      "description": "Check out my code and projects"
+    },
+    {
+      "id": "linkedin", 
+      "name": "LinkedIn",
+      "value": "ashley-chan-dev",
+      "url": "https://linkedin.com/in/ashley-chan-dev",
+      "color": "#9d8cc2",
+      "icon": "Linkedin",
+      "description": "Let's connect professionally"
+    },
+    {
+      "id": "email",
+      "name": "Email",
+      "value": "ashley.chan@example.com",
+      "url": "mailto:ashley.chan@example.com", 
+      "color": "#6f7d96",
+      "icon": "Mail",
+      "description": "Drop me a message anytime"
+    },
+    {
+      "id": "twitter",
+      "name": "Twitter",
+      "value": "@ashley_codes",
+      "url": "https://twitter.com/ashley_codes",
+      "color": "#c8ccd4",
+      "icon": "Twitter",
+      "description": "Follow my dev journey"
+    }
+  ],
+
+  "navigation": [
+    {
+      "id": "about",
+      "name": "Get to Know Me",
+      "href": "#get-to-know-me",
+      "description": "Learn about my background and interests"
+    },
+    {
+      "id": "projects", 
+      "name": "Projects",
+      "href": "#projects",
+      "description": "Explore my latest work and creations"
+    },
+    {
+      "id": "skills",
+      "name": "Skills", 
+      "href": "#skills",
+      "description": "Discover my technical expertise"
+    },
+    {
+      "id": "contact",
+      "name": "Contact",
+      "href": "#contact",
+      "description": "Get in touch with me"
+    }
+  ],
+
+  "theme": {
+    "colors": {
+      "primary": "#f5efe1",
+      "accent1": "#7a458c", 
+      "accent2": "#9d8cc2",
+      "accent3": "#6f7d96",
+      "accent4": "#c8ccd4"
+    },
+    "fonts": {
+      "title": "Inter",
+      "body": "Inter"
+    }
+  },
+
+  "meta": {
+    "title": "Ashley's World - Creative Developer Portfolio",
+    "description": "Ashley Chan - Computer Science student passionate about blending creativity with code. Explore my cosmic-themed portfolio featuring interactive projects and beautiful designs.",
+    "keywords": ["Ashley Chan", "developer", "computer science", "portfolio", "react", "creative coding"],
+    "lastUpdated": "2024-12-27"
+  }
+}
