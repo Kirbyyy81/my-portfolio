@@ -28,11 +28,16 @@ interface Link {
 
 const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
   const fgRef = useRef<any>();
-  const [dimensions, setDimensions] = useState({ width: window.innerWidth, height: window.innerHeight });
+  const [dimensions, setDimensions] = useState({ 
+    width: typeof window !== 'undefined' ? window.innerWidth : 1200, 
+    height: typeof window !== 'undefined' ? window.innerHeight : 800 
+  });
   const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
   const { data, loading, error } = usePortfolioData();
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const handleResize = () => {
       setDimensions({ width: window.innerWidth, height: window.innerHeight });
     };
@@ -41,38 +46,12 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Show loading state
-  if (loading || !data) {
-    return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0a0a0a' }}>
-        <motion.div
-          animate={{ rotate: 360, scale: [1, 1.2, 1] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          className="w-16 h-16 border-4 border-purple-400 border-t-transparent rounded-full"
-        />
-        <div className="ml-4 text-purple-300 text-lg">Loading cosmic data...</div>
-      </div>
-    );
-  }
-
-  // Show error state
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0a0a0a' }}>
-        <div className="text-center text-purple-300">
-          <p>Failed to load cosmic data</p>
-          <button 
-            onClick={() => window.location.reload()}
-            className="mt-4 bg-purple-600 text-white px-4 py-2 rounded-lg"
-          >
-            Retry
-          </button>
-        </div>
-      </div>
-    );
-  }
-
+  // Generate graph data - must be called before any early returns to maintain hooks order
   const graphData = useMemo(() => {
+    if (!data) {
+      return { nodes: [], links: [] };
+    }
+    
     const nodes: Node[] = [
       // Central node
       { 
@@ -175,6 +154,37 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
 
     return { nodes, links };
   }, [data, dimensions]);
+
+  // Show loading state after hooks are called
+  if (loading || !data) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0a0a0a' }}>
+        <motion.div
+          animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          className="w-16 h-16 border-4 border-purple-400 border-t-transparent rounded-full"
+        />
+        <div className="ml-4 text-purple-300 text-lg">Loading cosmic data...</div>
+      </div>
+    );
+  }
+
+  // Show error state after hooks are called
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0a0a0a' }}>
+        <div className="text-center text-purple-300">
+          <p>Failed to load cosmic data</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="mt-4 bg-purple-600 text-white px-4 py-2 rounded-lg"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const handleNodeHover = (node: Node | null) => {
     setHoveredNode(node);
