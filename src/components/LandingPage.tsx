@@ -5,6 +5,7 @@ import FloatingShapes from './FloatingShapes';
 import CustomIllustration from './CustomIllustration';
 import usePortfolioData from '../hooks/usePortfolioData';
 import AiExperiments from './AiExperiments';
+import TypingAnimation from './TypingAnimation';
 
 interface LandingPageProps {
   onToggle: () => void;
@@ -76,9 +77,16 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             onClick={onToggle}
             className="group cursor-pointer transition-all duration-500 hover:scale-105"
           >
-            <h1 className="text-8xl md:text-9xl font-black tracking-tighter leading-none bg-gradient-to-r from-purple-900 to-purple-600 bg-clip-text text-transparent hover:from-purple-800 hover:to-purple-500 transition-all duration-500">
-              ASHLEY'S WORLD
-            </h1>
+import TypingAnimation from './TypingAnimation';
+
+// ... (rest of the component)
+
+          <button
+            onClick={onToggle}
+            className="group cursor-pointer transition-all duration-500 hover:scale-105"
+          >
+            <TypingAnimation text="ASHLEY'S WORLD" className="text-8xl md:text-9xl font-black tracking-tighter leading-none bg-gradient-to-r from-purple-900 to-purple-600 bg-clip-text text-transparent hover:from-purple-800 hover:to-purple-500 transition-all duration-500 font-metamorphous" />
+          </button>
           </button>
           <motion.p
             initial={{ opacity: 0 }}
