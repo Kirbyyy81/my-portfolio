@@ -226,11 +226,12 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
       }
     }, centerX, centerY).strength(0.09));
 
-    // Reheat simulation to apply changes
-    fg.d3AlphaMin(0.001);
+    // Reheat simulation to apply changes (use supported API)
     fg.d3AlphaDecay(0.02);
     fg.d3VelocityDecay(0.3);
+    fg.d3AlphaTarget(0.3);
     fg.d3ReheatSimulation();
+    setTimeout(() => fg.d3AlphaTarget(0), 800);
   }, [graphData, dimensions]);
 
   // Show loading state after hooks are called
