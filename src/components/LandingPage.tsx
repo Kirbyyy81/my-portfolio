@@ -56,6 +56,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
     return icons[iconName] || Mail;
   };
 
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.substring(1); // Remove the '#'
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -102,6 +111,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
               <motion.a
                 key={item.id}
                 href={item.href}
+                onClick={(e) => handleSmoothScroll(e, item.href)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="text-gray-700 hover:text-purple-700 font-medium tracking-wide transition-colors duration-300 cursor-pointer"
