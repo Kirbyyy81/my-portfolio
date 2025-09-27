@@ -338,7 +338,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
               </p>
             </div>
             <div className="mt-12">
-              <div className="flex overflow-x-auto space-x-8 pb-8">
+              <div className="flex overflow-x-auto space-x-8 pb-8 scrollbar-hide [&::-webkit-scrollbar]:hidden [-webkit-overflow-scrolling:touch] [scrollbar-width:none]">
                 {experimentsData.map((experiment) => (
                   <div key={experiment.id} className="flex-shrink-0 w-64">
                     <SpotlightCard className="group relative block bg-white/40 backdrop-blur-sm rounded-3xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer">
