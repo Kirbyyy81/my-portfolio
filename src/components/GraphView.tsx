@@ -227,11 +227,7 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
     }, centerX, centerY).strength(0.09));
 
     // Reheat simulation to apply changes (use supported API)
-    fg.d3AlphaDecay(0.02);
-    fg.d3VelocityDecay(0.3);
-    fg.d3AlphaTarget(0.3);
     fg.d3ReheatSimulation();
-    setTimeout(() => fg.d3AlphaTarget(0), 800);
   }, [graphData, dimensions]);
 
   // Show loading state after hooks are called
@@ -491,8 +487,6 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
           const tgt = typeof link.target === 'object' ? link.target : { id: link.target };
           return (src.id === hoveredNode.id || tgt.id === hoveredNode.id) ? '#FFFFFFAA' : link.color;
         }}
-        d3AlphaDecay={0.02}
-        d3VelocityDecay={0.3}
         nodeCanvasObject={(node: Node, ctx, globalScale) => {
           // Safety check for node positions and size
           if (!node.x || !node.y || !isFinite(node.x) || !isFinite(node.y) || !node.size || !isFinite(node.size)) {
@@ -619,7 +613,7 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
             node.fx = node.x;
             node.fy = node.y;
           }
-          fgRef.current?.d3AlphaTarget(0.3);
+          fgRef.current?.d3ReheatSimulation();
         }}
         onNodeDragEnd={(node: any) => {
           if (node.id === 'ashley') {
@@ -629,7 +623,7 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
             node.fx = null;
             node.fy = null;
           }
-          fgRef.current?.d3AlphaTarget(0);
+          fgRef.current?.d3ReheatSimulation();
         }}
         cooldownTicks={200}
         onEngineStop={() => {
