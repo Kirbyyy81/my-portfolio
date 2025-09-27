@@ -206,8 +206,8 @@
     {
       "id": "github",
       "name": "GitHub",
-      "value": "ashley-chan",
-      "url": "https://github.com/ashley-chan",
+      "value": "ashley-chan-github",
+      "url": "https://github.com/SoarAway",
       "color": "#7a458c",
       "icon": "Github",
       "description": "Check out my code and projects"
@@ -215,8 +215,8 @@
     {
       "id": "linkedin", 
       "name": "LinkedIn",
-      "value": "ashley-chan-dev",
-      "url": "https://linkedin.com/in/ashley-chan-dev",
+      "value": "ashley-chan-linkedin",
+      "url": "https://linkedin.com/in/ashley-chan-li-ling",
       "color": "#9d8cc2",
       "icon": "Linkedin",
       "description": "Let's connect professionally"
@@ -225,19 +225,10 @@
       "id": "email",
       "name": "Email",
       "value": "ashley.chan@example.com",
-      "url": "mailto:ashley.chan@example.com", 
+      "url": "mailto:cashley2705@gmail.com", 
       "color": "#6f7d96",
       "icon": "Mail",
       "description": "Drop me a message anytime"
-    },
-    {
-      "id": "twitter",
-      "name": "Twitter",
-      "value": "@ashley_codes",
-      "url": "https://twitter.com/ashley_codes",
-      "color": "#c8ccd4",
-      "icon": "Twitter",
-      "description": "Follow my dev journey"
     }
   ],
 
