@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Code2, Palette, Zap } from 'lucide-react';
+import { Github, Linkedin, Mail, Twitter, Sparkles, Star, Heart } from 'lucide-react';
 import FloatingShapes from './FloatingShapes';
 import CustomIllustration from './CustomIllustration';
+import usePortfolioData from '../hooks/usePortfolioData';
 
 interface LandingPageProps {
   onToggle: () => void;
@@ -10,36 +11,47 @@ interface LandingPageProps {
 
 const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const { data, loading, error } = usePortfolioData();
 
-  const skills = [
-    { name: 'React', level: 90, color: '#7a458c' },
-    { name: 'TypeScript', level: 85, color: '#9d8cc2' },
-    { name: 'Node.js', level: 80, color: '#6f7d96' },
-    { name: 'Python', level: 88, color: '#7a458c' },
-    { name: 'UI/UX Design', level: 75, color: '#9d8cc2' },
-    { name: 'GraphQL', level: 70, color: '#6f7d96' },
-  ];
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f5efe1' }}>
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full"
+        />
+      </div>
+    );
+  }
 
-  const projects = [
-    {
-      title: 'EcoTracker',
-      description: 'Sustainable living app with gamification',
-      tech: ['React', 'Node.js', 'MongoDB'],
-      color: '#7a458c'
-    },
-    {
-      title: 'CodeCollab',
-      description: 'Real-time collaborative coding platform',
-      tech: ['TypeScript', 'WebSocket', 'Redis'],
-      color: '#9d8cc2'
-    },
-    {
-      title: 'ArtGen AI',
-      description: 'Machine learning powered art generator',
-      tech: ['Python', 'TensorFlow', 'React'],
-      color: '#6f7d96'
-    }
-  ];
+  // Show error state
+  if (error || !data) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f5efe1' }}>
+        <div className="text-center text-gray-600">
+          <p>Failed to load portfolio data</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="mt-4 bg-purple-600 text-white px-4 py-2 rounded-lg"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const getIconComponent = (iconName: string) => {
+    const icons: { [key: string]: React.ComponentType<any> } = {
+      Github,
+      Linkedin, 
+      Mail,
+      Twitter
+    };
+    return icons[iconName] || Mail;
+  };
 
   return (
     <motion.div
@@ -85,15 +97,16 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
           className="flex justify-center"
         >
           <div className="flex flex-wrap justify-center gap-8 bg-white/30 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg">
-            {['Get to Know Me', 'Projects', 'Skills', 'Contact'].map((item, index) => (
+            {data.navigation.map((item, index) => (
               <motion.a
-                key={item}
-                href={`#${item.toLowerCase().replace(/\s/g, '-')}`}
+                key={item.id}
+                href={item.href}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="text-gray-700 hover:text-purple-700 font-medium tracking-wide transition-colors duration-300 cursor-pointer"
+                title={item.description}
               >
-                {item}
+                {item.name}
               </motion.a>
             ))}
           </div>
@@ -117,12 +130,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             </div>
             <div className="lg:w-1/2 text-left">
               <h2 className="text-5xl font-bold text-gray-800 mb-6">
-                안녕하세요, I'm Ashley ~
+                {data.personal.greeting}
               </h2>
               <p className="text-xl text-gray-600 leading-relaxed mb-8">
-                A passionate computer science student who loves blending creativity with code. 
-                I build digital experiences that are both beautiful and functional, 
-                always with a touch of playfulness and innovation.
+                {data.personal.bio}
               </p>
               <div className="flex gap-4">
                 <motion.button
@@ -156,25 +167,32 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             Featured Projects
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+            {data.projects.slice(0, 3).map((project, index) => (
               <motion.div
-                key={project.title}
+                key={project.id}
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, delay: 1 + index * 0.2 }}
                 whileHover={{ y: -10, scale: 1.02 }}
-                className="group bg-white/40 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500"
+                className="group bg-white/40 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
                 style={{ borderLeft: `6px solid ${project.color}` }}
+                onClick={() => project.demo && window.open(project.demo, '_blank')}
               >
-                <div className="flex items-center mb-4">
-                  <div 
-                    className="w-4 h-4 rounded-full mr-3"
-                    style={{ backgroundColor: project.color }}
-                  />
-                  <h3 className="text-2xl font-bold text-gray-800">{project.title}</h3>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center">
+                    <div 
+                      className="w-4 h-4 rounded-full mr-3"
+                      style={{ backgroundColor: project.color }}
+                    />
+                    <h3 className="text-2xl font-bold text-gray-800">{project.title}</h3>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {project.status === 'completed' && <Star className="w-4 h-4 text-green-500" />}
+                    {project.status === 'in-progress' && <Sparkles className="w-4 h-4 text-blue-500" />}
+                  </div>
                 </div>
-                <p className="text-gray-600 mb-6 leading-relaxed">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
+                <p className="text-gray-600 mb-4 leading-relaxed">{project.shortDescription}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
@@ -184,6 +202,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
                     </span>
                   ))}
                 </div>
+                {project.highlights.length > 0 && (
+                  <div className="text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="font-semibold">Highlights:</span> {project.highlights[0]}
+                  </div>
+                )}
               </motion.div>
             ))}
           </div>
@@ -201,9 +224,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             Skills & Expertise
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
-            {skills.map((skill, index) => (
+            {data.skills.map((skill, index) => (
               <motion.div
-                key={skill.name}
+                key={skill.id}
                 initial={{ x: -30, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.6, delay: 1.2 + index * 0.1 }}
@@ -212,10 +235,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
                 className="group cursor-pointer"
               >
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-xl font-semibold text-gray-800">{skill.name}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl font-semibold text-gray-800">{skill.name}</span>
+                    <span className="text-xs text-gray-500 font-medium px-2 py-1 bg-gray-100 rounded-full">{skill.category}</span>
+                  </div>
                   <span className="text-sm text-gray-600">{skill.level}%</span>
                 </div>
-                <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-3 bg-gray-200 rounded-full overflow-hidden mb-1">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: hoveredSkill === skill.name ? '100%' : `${skill.level}%` }}
@@ -223,6 +249,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
                     className="h-full rounded-full transition-all duration-500"
                     style={{ backgroundColor: skill.color }}
                   />
+                </div>
+                <div className="text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                  {skill.description}
                 </div>
               </motion.div>
             ))}
@@ -245,23 +274,56 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             Whether you have an idea to bring to life or just want to chat about tech and design!
           </p>
           <div className="flex justify-center gap-8">
-            {[
-              { Icon: Github, href: '#', color: '#7a458c' },
-              { Icon: Linkedin, href: '#', color: '#9d8cc2' },
-              { Icon: Mail, href: 'mailto:ashley@example.com', color: '#6f7d96' }
-            ].map(({ Icon, href, color }, index) => (
-              <motion.a
-                key={index}
-                href={href}
-                whileHover={{ scale: 1.2, rotate: 10 }}
-                whileTap={{ scale: 0.9 }}
-                className="w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300"
-                style={{ backgroundColor: color }}
-              >
-                <Icon className="w-8 h-8 text-white" />
-              </motion.a>
-            ))}
+            {data.contact.slice(0, 3).map((contact, index) => {
+              const IconComponent = getIconComponent(contact.icon);
+              return (
+                <motion.a
+                  key={contact.id}
+                  href={contact.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.2, rotate: 10 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300 group"
+                  style={{ backgroundColor: contact.color }}
+                  title={contact.description}
+                >
+                  <IconComponent className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
+                </motion.a>
+              );
+            })}
           </div>
+          
+          {/* Additional hobbies section */}
+          <motion.div
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.4 }}
+            className="mt-20"
+          >
+            <h3 className="text-2xl font-bold text-center text-gray-800 mb-8">
+              When I'm not coding...
+            </h3>
+            <div className="flex justify-center flex-wrap gap-4 max-w-2xl mx-auto">
+              {data.hobbies.slice(0, 6).map((hobby, index) => (
+                <motion.div
+                  key={hobby.id}
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 1.5 + index * 0.1 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="bg-white/40 backdrop-blur-sm px-4 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group"
+                  style={{ borderLeft: `4px solid ${hobby.color}` }}
+                  title={hobby.description}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg group-hover:scale-110 transition-transform">{hobby.icon}</span>
+                    <span className="text-sm font-medium text-gray-700 group-hover:text-gray-800">{hobby.name}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </motion.section>
       </main>
     </motion.div>

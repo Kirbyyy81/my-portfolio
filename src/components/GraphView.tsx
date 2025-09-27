@@ -1,7 +1,8 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import ForceGraph2D from 'react-force-graph-2d';
 import { ArrowLeft } from 'lucide-react';
+import usePortfolioData from '../hooks/usePortfolioData';
 
 interface GraphViewProps {
   onToggle: () => void;
@@ -29,6 +30,7 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
   const fgRef = useRef<any>();
   const [dimensions, setDimensions] = useState({ width: window.innerWidth, height: window.innerHeight });
   const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
+  const { data, loading, error } = usePortfolioData();
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,66 +41,140 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const graphData = {
-    nodes: [
+  // Show loading state
+  if (loading || !data) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0a0a0a' }}>
+        <motion.div
+          animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          className="w-16 h-16 border-4 border-purple-400 border-t-transparent rounded-full"
+        />
+        <div className="ml-4 text-purple-300 text-lg">Loading cosmic data...</div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0a0a0a' }}>
+        <div className="text-center text-purple-300">
+          <p>Failed to load cosmic data</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="mt-4 bg-purple-600 text-white px-4 py-2 rounded-lg"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const graphData = useMemo(() => {
+    const nodes: Node[] = [
       // Central node
-      { id: 'ashley', name: 'Ashley Chan', group: 'center', color: '#7a458c', size: 20 },
+      { 
+        id: 'ashley', 
+        name: data.personal.name, 
+        group: 'center', 
+        color: '#7a458c', 
+        size: 25,
+        fx: dimensions.width / 2,
+        fy: dimensions.height / 2
+      },
+    ];
+
+    const links: Link[] = [];
+
+    // Add skills nodes and connections
+    data.skills.forEach(skill => {
+      nodes.push({
+        id: skill.id,
+        name: skill.name,
+        group: 'skills',
+        color: '#9d8cc2',
+        size: Math.max(8, skill.level / 6) // Size based on skill level
+      });
       
-      // Skills nodes
-      { id: 'react', name: 'React', group: 'skills', color: '#9d8cc2', size: 15 },
-      { id: 'typescript', name: 'TypeScript', group: 'skills', color: '#9d8cc2', size: 14 },
-      { id: 'nodejs', name: 'Node.js', group: 'skills', color: '#9d8cc2', size: 13 },
-      { id: 'python', name: 'Python', group: 'skills', color: '#9d8cc2', size: 15 },
-      { id: 'uiux', name: 'UI/UX Design', group: 'skills', color: '#9d8cc2', size: 12 },
-      { id: 'graphql', name: 'GraphQL', group: 'skills', color: '#9d8cc2', size: 11 },
+      links.push({
+        source: 'ashley',
+        target: skill.id,
+        color: '#9d8cc280'
+      });
+    });
+
+    // Add projects nodes and connections
+    data.projects.forEach(project => {
+      const projectSize = project.status === 'completed' ? 14 : project.status === 'in-progress' ? 12 : 10;
+      nodes.push({
+        id: project.id,
+        name: project.title,
+        group: 'projects',
+        color: '#6f7d96',
+        size: projectSize
+      });
       
-      // Projects nodes
-      { id: 'ecotracker', name: 'EcoTracker', group: 'projects', color: '#6f7d96', size: 13 },
-      { id: 'codecollab', name: 'CodeCollab', group: 'projects', color: '#6f7d96', size: 12 },
-      { id: 'artgen', name: 'ArtGen AI', group: 'projects', color: '#6f7d96', size: 11 },
+      links.push({
+        source: 'ashley',
+        target: project.id,
+        color: '#6f7d9680'
+      });
       
-      // Hobbies nodes
-      { id: 'gaming', name: 'Gaming', group: 'hobbies', color: '#c8ccd4', size: 10 },
-      { id: 'illustration', name: 'Digital Art', group: 'hobbies', color: '#c8ccd4', size: 10 },
-      { id: 'music', name: 'Music', group: 'hobbies', color: '#c8ccd4', size: 9 },
-      { id: 'cooking', name: 'Cooking', group: 'hobbies', color: '#c8ccd4', size: 9 },
+      // Connect projects to their tech stack
+      project.tech.forEach(tech => {
+        const skillNode = data.skills.find(skill => 
+          skill.name.toLowerCase() === tech.toLowerCase() ||
+          skill.name.toLowerCase().includes(tech.toLowerCase()) ||
+          tech.toLowerCase().includes(skill.name.toLowerCase())
+        );
+        if (skillNode) {
+          links.push({
+            source: project.id,
+            target: skillNode.id,
+            color: '#c8ccd460'
+          });
+        }
+      });
+    });
+
+    // Add hobbies nodes and connections
+    data.hobbies.forEach(hobby => {
+      nodes.push({
+        id: hobby.id,
+        name: hobby.name,
+        group: 'hobbies',
+        color: '#c8ccd4',
+        size: 10
+      });
       
-      // Contact nodes
-      { id: 'github', name: 'GitHub', group: 'contact', color: '#7a458c', size: 8 },
-      { id: 'linkedin', name: 'LinkedIn', group: 'contact', color: '#7a458c', size: 8 },
-      { id: 'email', name: 'Email', group: 'contact', color: '#7a458c', size: 8 },
-    ] as Node[],
-    
-    links: [
-      // Central connections
-      { source: 'ashley', target: 'react', color: '#7a458c80' },
-      { source: 'ashley', target: 'typescript', color: '#7a458c80' },
-      { source: 'ashley', target: 'nodejs', color: '#7a458c80' },
-      { source: 'ashley', target: 'python', color: '#7a458c80' },
-      { source: 'ashley', target: 'uiux', color: '#7a458c80' },
-      { source: 'ashley', target: 'graphql', color: '#7a458c80' },
+      links.push({
+        source: 'ashley',
+        target: hobby.id,
+        color: '#c8ccd480'
+      });
+    });
+
+    // Add contact nodes and connections
+    data.contact.forEach(contact => {
+      nodes.push({
+        id: contact.id,
+        name: contact.name,
+        group: 'contact',
+        color: contact.color,
+        size: 8
+      });
       
-      { source: 'ashley', target: 'ecotracker', color: '#9d8cc280' },
-      { source: 'ashley', target: 'codecollab', color: '#9d8cc280' },
-      { source: 'ashley', target: 'artgen', color: '#9d8cc280' },
-      
-      { source: 'ashley', target: 'gaming', color: '#6f7d9680' },
-      { source: 'ashley', target: 'illustration', color: '#6f7d9680' },
-      { source: 'ashley', target: 'music', color: '#6f7d9680' },
-      { source: 'ashley', target: 'cooking', color: '#6f7d9680' },
-      
-      { source: 'ashley', target: 'github', color: '#c8ccd480' },
-      { source: 'ashley', target: 'linkedin', color: '#c8ccd480' },
-      { source: 'ashley', target: 'email', color: '#c8ccd480' },
-      
-      // Project-skill connections
-      { source: 'ecotracker', target: 'react', color: '#9d8cc260' },
-      { source: 'ecotracker', target: 'nodejs', color: '#9d8cc260' },
-      { source: 'codecollab', target: 'typescript', color: '#9d8cc260' },
-      { source: 'artgen', target: 'python', color: '#9d8cc260' },
-      { source: 'artgen', target: 'uiux', color: '#9d8cc260' },
-    ] as Link[]
-  };
+      links.push({
+        source: 'ashley',
+        target: contact.id,
+        color: `${contact.color}80`
+      });
+    });
+
+    return { nodes, links };
+  }, [data, dimensions]);
 
   const handleNodeHover = (node: Node | null) => {
     setHoveredNode(node);
@@ -121,8 +197,41 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.6 }}
       className="relative w-full h-screen overflow-hidden"
-      style={{ backgroundColor: '#f5efe1' }}
+      style={{ 
+        background: 'radial-gradient(ellipse at center, #1a0d2e 0%, #0a0a0a 70%)',
+        backgroundImage: `
+          radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+          radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+          radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+          radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+          radial-gradient(2px 2px at 160px 30px, #fff, transparent)
+        `,
+        backgroundRepeat: 'repeat',
+        backgroundSize: '200px 100px'
+      }}
     >
+      {/* Animated starfield background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {Array.from({ length: 50 }, (_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full opacity-60"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              opacity: [0.3, 1, 0.3],
+              scale: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: 2 + Math.random() * 3,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
       {/* Header Controls */}
       <motion.div
         initial={{ y: -50, opacity: 0 }}
@@ -132,7 +241,7 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
       >
         <button
           onClick={onToggle}
-          className="flex items-center gap-2 bg-white/20 backdrop-blur-sm text-gray-800 px-4 py-2 rounded-full hover:bg-white/30 transition-all duration-300 shadow-lg"
+          className="flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full hover:bg-white/20 transition-all duration-300 shadow-lg border border-white/20"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Portfolio
@@ -145,7 +254,7 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
         transition={{ delay: 0.3 }}
         className="absolute top-6 right-6 z-20"
       >
-        <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-gray-800 shadow-lg">
+        <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white shadow-lg border border-white/20">
           <span className="text-sm font-medium">Drag nodes • Zoom with scroll</span>
         </div>
       </motion.div>
@@ -157,11 +266,11 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
         transition={{ delay: 0.5 }}
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none"
       >
-        <h1 className="text-6xl md:text-8xl font-black text-center bg-gradient-to-r from-purple-900/20 to-purple-600/20 bg-clip-text text-transparent">
+        <h1 className="text-6xl md:text-8xl font-black text-center bg-gradient-to-r from-purple-400/30 to-purple-200/30 bg-clip-text text-transparent">
           ASHLEY'S
         </h1>
-        <div className="text-2xl md:text-4xl font-light text-center text-gray-600/30">
-          Interactive World
+        <div className="text-2xl md:text-4xl font-light text-center text-purple-200/40">
+          Cosmic Universe
         </div>
       </motion.div>
 
@@ -171,10 +280,10 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="absolute bottom-6 left-6 z-20 bg-white/20 backdrop-blur-sm p-4 rounded-2xl shadow-lg max-w-sm"
+          className="absolute bottom-6 left-6 z-20 bg-black/40 backdrop-blur-sm p-4 rounded-2xl shadow-lg max-w-sm border border-purple-500/30"
         >
-          <h3 className="text-xl font-bold text-gray-800 mb-2">{hoveredNode.name}</h3>
-          <p className="text-sm text-gray-600 capitalize">Category: {hoveredNode.group}</p>
+          <h3 className="text-xl font-bold text-white mb-2">{hoveredNode.name}</h3>
+          <p className="text-sm text-purple-200 capitalize">Category: {hoveredNode.group}</p>
           <div 
             className="w-4 h-4 rounded-full mt-2"
             style={{ backgroundColor: hoveredNode.color }}
