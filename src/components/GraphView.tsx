@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import ForceGraph2D from 'react-force-graph-2d';
 import { ArrowLeft } from 'lucide-react';
 import usePortfolioData from '../hooks/usePortfolioData';
+import { forceCollide, forceRadial } from 'd3-force';
 
 interface GraphViewProps {
   onToggle: () => void;
@@ -52,6 +53,9 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
       return { nodes: [], links: [] };
     }
     
+    const centerX = dimensions.width / 2;
+    const centerY = dimensions.height / 2;
+
     const nodes: Node[] = [
       // Central node - Ashley (Largest, bright star)
       { 
@@ -60,8 +64,8 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
         group: 'center', 
         color: '#E6D7FF', // Bright central star color
         size: 40, // Much larger central node
-        fx: dimensions.width / 2,
-        fy: dimensions.height / 2
+        fx: centerX,
+        fy: centerY
       },
     ];
 
@@ -167,6 +171,67 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
 
     return { nodes, links };
   }, [data, dimensions]);
+
+  // Configure forces: pin center node, radial layout, collisions, and stronger repulsion
+  useEffect(() => {
+    const fg = fgRef.current;
+    if (!fg || !graphData.nodes.length) return;
+
+    const centerX = dimensions.width / 2;
+    const centerY = dimensions.height / 2;
+
+    // Pin the central node to the center at all times
+    graphData.nodes.forEach((n: any) => {
+      if (n.id === 'ashley') {
+        n.fx = centerX;
+        n.fy = centerY;
+      }
+    });
+
+    // Link distances by group hierarchy
+    const linkForce: any = fg.d3Force('link');
+    if (linkForce) {
+      linkForce.distance((link: any) => {
+        const src: any = typeof link.source === 'object' ? link.source : graphData.nodes.find(n => n.id === link.source);
+        const tgt: any = typeof link.target === 'object' ? link.target : graphData.nodes.find(n => n.id === link.target);
+        const other = src.group === 'center' ? tgt : src;
+        switch (other?.group) {
+          case 'skills': return 200;
+          case 'projects': return 280;
+          case 'hobbies': return 340;
+          case 'contact': return 400;
+          default: return 160;
+        }
+      }).strength(0.4);
+    }
+
+    // Strong negative charge to spread nodes out
+    const chargeForce: any = fg.d3Force('charge');
+    if (chargeForce) {
+      chargeForce.strength(-1500).distanceMin(20).distanceMax(2000);
+    }
+
+    // Collision force to avoid overlap (based on node size)
+    fg.d3Force('collide', forceCollide((d: any) => (d.size || 10) + 12).strength(1));
+
+    // Radial force to form galaxy-like concentric orbits
+    fg.d3Force('radial', forceRadial((d: any) => {
+      if (d.id === 'ashley') return 0;
+      switch (d.group) {
+        case 'skills': return 220;
+        case 'projects': return 320;
+        case 'hobbies': return 380;
+        case 'contact': return 460;
+        default: return 260;
+      }
+    }, centerX, centerY).strength(0.09));
+
+    // Reheat simulation to apply changes
+    fg.d3AlphaMin(0.001);
+    fg.d3AlphaDecay(0.02);
+    fg.d3VelocityDecay(0.3);
+    fg.d3ReheatSimulation();
+  }, [graphData, dimensions]);
 
   // Show loading state after hooks are called
   if (loading || !data) {
@@ -413,6 +478,20 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
         nodeColor={(node: Node) => node.color}
         nodeVal={(node: Node) => node.size}
         nodeLabel={(node: Node) => node.name}
+        linkWidth={(link: any) => {
+          if (!hoveredNode) return 1;
+          const src = typeof link.source === 'object' ? link.source : { id: link.source };
+          const tgt = typeof link.target === 'object' ? link.target : { id: link.target };
+          return (src.id === hoveredNode.id || tgt.id === hoveredNode.id) ? 2.5 : 1;
+        }}
+        linkColor={(link: any) => {
+          if (!hoveredNode) return link.color;
+          const src = typeof link.source === 'object' ? link.source : { id: link.source };
+          const tgt = typeof link.target === 'object' ? link.target : { id: link.target };
+          return (src.id === hoveredNode.id || tgt.id === hoveredNode.id) ? '#FFFFFFAA' : link.color;
+        }}
+        d3AlphaDecay={0.02}
+        d3VelocityDecay={0.3}
         nodeCanvasObject={(node: Node, ctx, globalScale) => {
           // Safety check for node positions and size
           if (!node.x || !node.y || !isFinite(node.x) || !isFinite(node.y) || !node.size || !isFinite(node.size)) {
@@ -432,14 +511,18 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
           ctx.shadowColor = node.color;
           ctx.shadowBlur = isHovered ? 25 : (isCenter ? 20 : 10);
           
+          // Scale radius with zoom to maintain readability
+          const scaleFactor = 1 / Math.sqrt(globalScale);
+          const radius = Math.max(3, node.size * scaleFactor);
+
           // Draw main node circle with gradient
           const gradient = ctx.createRadialGradient(
-            node.x - node.size * 0.3, 
-            node.y - node.size * 0.3, 
+            node.x - radius * 0.3, 
+            node.y - radius * 0.3, 
             0,
             node.x, 
             node.y, 
-            node.size
+            radius
           );
           
           if (isCenter) {
@@ -453,24 +536,24 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
           }
           
           ctx.beginPath();
-          ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI, false);
+          ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI, false);
           ctx.fillStyle = gradient;
           ctx.fill();
           
           // Add inner highlight
           const highlightGradient = ctx.createRadialGradient(
-            node.x - node.size * 0.5, 
-            node.y - node.size * 0.5, 
+            node.x - radius * 0.5, 
+            node.y - radius * 0.5, 
             0,
-            node.x - node.size * 0.3, 
-            node.y - node.size * 0.3, 
-            node.size * 0.6
+            node.x - radius * 0.3, 
+            node.y - radius * 0.3, 
+            radius * 0.6
           );
           highlightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
           highlightGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
           
           ctx.beginPath();
-          ctx.arc(node.x - node.size * 0.2, node.y - node.size * 0.2, node.size * 0.4, 0, 2 * Math.PI, false);
+          ctx.arc(node.x - radius * 0.2, node.y - radius * 0.2, radius * 0.4, 0, 2 * Math.PI, false);
           ctx.fillStyle = highlightGradient;
           ctx.fill();
           
@@ -479,7 +562,7 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
             ctx.shadowColor = '#FFFFFF';
             ctx.shadowBlur = 35;
             ctx.beginPath();
-            ctx.arc(node.x, node.y, node.size + 3, 0, 2 * Math.PI, false);
+            ctx.arc(node.x, node.y, radius + 3, 0, 2 * Math.PI, false);
             ctx.strokeStyle = node.color;
             ctx.lineWidth = 2;
             ctx.stroke();
@@ -489,7 +572,7 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
           ctx.shadowBlur = 0;
           
           // Draw label with improved styling
-          const labelY = node.y + node.size + fontSize + 8;
+          const labelY = node.y + radius + fontSize + 8;
           
           // Text shadow for better readability
           ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
@@ -504,7 +587,7 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
             const projectData = data?.projects.find(p => p.id === node.id);
             if (projectData) {
               ctx.beginPath();
-              ctx.arc(node.x + node.size * 0.7, node.y - node.size * 0.7, 4, 0, 2 * Math.PI, false);
+              ctx.arc(node.x + radius * 0.7, node.y - radius * 0.7, 4, 0, 2 * Math.PI, false);
               
               if (projectData.status === 'completed') {
                 ctx.fillStyle = '#00FF88';
@@ -524,39 +607,28 @@ const GraphView: React.FC<GraphViewProps> = ({ onToggle }) => {
             }
           }
         }}
-        linkColor={(link: Link) => link.color}
-        linkWidth={2}
         linkDirectionalParticles={0}
         onNodeHover={handleNodeHover}
-        onNodeDrag={handleNodeDrag}
-        onNodeDragEnd={handleNodeDragEnd}
-        d3ForceConfig={{
-          charge: -800, // Stronger repulsion for better spreading
-          link: { 
-            distance: (link: any) => {
-              // Variable distances based on node types
-              const sourceNode = graphData.nodes.find(n => n.id === link.source.id || n.id === link.source);
-              const targetNode = graphData.nodes.find(n => n.id === link.target.id || n.id === link.target);
-              
-              if (sourceNode?.group === 'center') {
-                if (targetNode?.group === 'skills') return 150;
-                if (targetNode?.group === 'projects') return 200;
-                if (targetNode?.group === 'hobbies') return 120;
-                if (targetNode?.group === 'contact') return 100;
-              }
-              return 80; // Secondary connections
-            },
-            strength: 0.3
-          },
-          center: { 
-            x: dimensions.width / 2, 
-            y: dimensions.height / 2,
-            strength: 0.1 // Gentle center force
-          },
-          collision: {
-            radius: (node: any) => node.size + 10,
-            strength: 0.8
+        onNodeDrag={(node: any) => {
+          // Allow drag but keep central node fixed
+          if (node.id === 'ashley') {
+            node.fx = dimensions.width / 2;
+            node.fy = dimensions.height / 2;
+          } else {
+            node.fx = node.x;
+            node.fy = node.y;
           }
+          fgRef.current?.d3AlphaTarget(0.3);
+        }}
+        onNodeDragEnd={(node: any) => {
+          if (node.id === 'ashley') {
+            node.fx = dimensions.width / 2;
+            node.fy = dimensions.height / 2;
+          } else {
+            node.fx = null;
+            node.fy = null;
+          }
+          fgRef.current?.d3AlphaTarget(0);
         }}
         cooldownTicks={200}
         onEngineStop={() => {
