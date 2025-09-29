@@ -85,7 +85,7 @@ const LandingPage = ({ onToggle }) => {
           <div className="flex flex-col lg:flex-row items-center justify-between">
             <div className="lg:w-1/2 mb-8 lg:mb-0">
               <motion.h2 
-                className="text-4xl md:text-5xl font-bold text-[#7a458c] mb-6"
+                className="text-4xl md:text-5xl font-bold text-gray-800 mb-6"
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
@@ -93,7 +93,7 @@ const LandingPage = ({ onToggle }) => {
                 안녕하세요, I'm Ashley ~
               </motion.h2>
               <motion.p 
-                className="text-xl text-[#6f7d96] leading-relaxed mb-8"
+                className="text-xl text-gray-600 leading-relaxed mb-8"
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.9 }}
@@ -107,13 +107,13 @@ const LandingPage = ({ onToggle }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.1 }}
               >
-                <a href="#" className="p-3 bg-[#7a458c] text-white rounded-full hover:bg-[#9d8cc2] transition-colors duration-300">
+                <a href="#" className="p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300">
                   <Github size={24} />
                 </a>
-                <a href="#" className="p-3 bg-[#7a458c] text-white rounded-full hover:bg-[#9d8cc2] transition-colors duration-300">
+                <a href="#" className="p-3 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors duration-300">
                   <Linkedin size={24} />
                 </a>
-                <a href="#" className="p-3 bg-[#7a458c] text-white rounded-full hover:bg-[#9d8cc2] transition-colors duration-300">
+                <a href="#" className="p-3 bg-orange-600 text-white rounded-full hover:bg-orange-700 transition-colors duration-300">
                   <Mail size={24} />
                 </a>
               </motion.div>
@@ -136,30 +136,31 @@ const LandingPage = ({ onToggle }) => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-4xl font-bold text-[#7a458c] text-center mb-12">Featured Projects</h3>
+          <h3 className="text-4xl font-bold text-gray-800 text-center mb-12">Featured Projects</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <motion.div
                 key={project.title}
-                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-[#c8ccd4]/30"
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -5 }}
+                style={{ borderLeft: `6px solid ${['#3B82F6', '#10B981', '#F59E0B'][index % 3]}` }}
               >
-                <h4 className="text-xl font-bold text-[#7a458c] mb-3">{project.title}</h4>
-                <p className="text-[#6f7d96] mb-4 leading-relaxed">{project.description}</p>
+                <h4 className="text-xl font-bold text-gray-800 mb-3">{project.title}</h4>
+                <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech) => (
-                    <span key={tech} className="px-3 py-1 bg-[#9d8cc2]/20 text-[#7a458c] rounded-full text-sm font-medium">
+                    <span key={tech} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
                       {tech}
                     </span>
                   ))}
                 </div>
                 <a 
                   href={project.link} 
-                  className="inline-flex items-center text-[#7a458c] hover:text-[#9d8cc2] font-medium transition-colors duration-300"
+                  className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium transition-colors duration-300"
                 >
                   View Project <ExternalLink size={16} className="ml-2" />
                 </a>
@@ -177,17 +178,21 @@ const LandingPage = ({ onToggle }) => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-4xl font-bold text-[#7a458c] text-center mb-12">Skills & Technologies</h3>
+          <h3 className="text-4xl font-bold text-gray-800 text-center mb-12">Skills & Technologies</h3>
           <div className="flex flex-wrap justify-center gap-4">
             {skills.map((skill, index) => (
               <motion.span
                 key={skill}
-                className="px-6 py-3 bg-white/80 backdrop-blur-sm text-[#7a458c] rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300 border border-[#c8ccd4]/30"
+                className="px-6 py-3 bg-white/80 backdrop-blur-sm text-gray-700 rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ scale: 1.05, backgroundColor: "rgba(122, 69, 140, 0.1)" }}
+                whileHover={{ scale: 1.05 }}
+                style={{ 
+                  backgroundColor: ['#EFF6FF', '#F0FDF4', '#FFFBEB', '#FDF2F8', '#F3E8FF'][index % 5],
+                  color: ['#1D4ED8', '#059669', '#D97706', '#BE185D', '#7C3AED'][index % 5]
+                }}
               >
                 {skill}
               </motion.span>
@@ -204,13 +209,13 @@ const LandingPage = ({ onToggle }) => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-4xl font-bold text-[#7a458c] mb-8">Let's Connect!</h3>
-          <p className="text-xl text-[#6f7d96] mb-8 max-w-2xl mx-auto">
+          <h3 className="text-4xl font-bold text-gray-800 mb-8">Let's Connect!</h3>
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             I'm always excited to collaborate on interesting projects or just chat about technology, design, and life!
           </p>
           <motion.a
             href="mailto:ashley@example.com"
-            className="inline-flex items-center px-8 py-4 bg-[#7a458c] text-white rounded-full font-medium hover:bg-[#9d8cc2] transition-colors duration-300 shadow-lg hover:shadow-xl"
+            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
