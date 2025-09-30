@@ -167,10 +167,6 @@ const GetToKnowMe: React.FC = () => {
           <h2 className="text-5xl font-bold text-gray-800 mb-4 font-chewy">
             Get to Know Me
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Beyond the code and projects, here's the real me — quirky, curious, and always ready for the next adventure. 
-            <span className="text-purple-600 font-medium"> Flip the cards to discover my secrets!</span>
-          </p>
         </motion.div>
 
         {/* Cards Grid */}
