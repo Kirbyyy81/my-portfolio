@@ -56,8 +56,8 @@ portfolio/
 
 ## 📬 Contact Me
 
-* 🌐 Github: [ashleychan.dev](https://github.com/SoarAway)
-* 📧 Email: [ashley@example.com](mailto:ashleyc.work27@gmail.com)
+* 🌐 Github: [github.com/SoarAway](https://github.com/SoarAway)
+* 📧 Email: [ashleyc.work27@gmail.com](mailto:ashleyc.work27@gmail.com)
 * 💼 LinkedIn: [linkedin.com/in/ashleychan](https://linkedin.com/in/ashley-chan-li-ling)
 
 ---
