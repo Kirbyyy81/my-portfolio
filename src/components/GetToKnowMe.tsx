@@ -179,18 +179,6 @@ const GetToKnowMe: React.FC = () => {
             <FlipCard key={card.id} card={card} index={index} />
           ))}
         </div>
-
-        {/* Fun Footer */}
-        <motion.div
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-center mt-16"
-        >
-          <p className="text-gray-500 text-sm">
-            ✨ Each card tells a story — hover or tap to reveal the magic! ✨
-          </p>
-        </motion.div>
       </div>
     </motion.section>
   );
