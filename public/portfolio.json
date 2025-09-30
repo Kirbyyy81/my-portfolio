@@ -85,63 +85,64 @@
 
   "projects": [
     {
-      "id": "ecotracker",
-      "title": "EcoTracker",
-      "description": "Sustainable living app with gamification features that helps users track their environmental impact and build eco-friendly habits through engaging challenges and rewards.",
-      "shortDescription": "Sustainable living app with gamification",
-      "tech": ["React", "Node.js", "MongoDB", "Chart.js"],
+      "id": "taleq",
+      "title": "taleQ",
+      "description": "An AI-powered talent acquisition system designed to streamline resume screening and HR workflow.",
+      "shortDescription": "AI-powered talent acquisition system",
+      "tech": ["React.js", "Next.js", "Google Gemini API", "JamAI Base", "Vercel"],
       "color": "#7a458c",
       "status": "completed",
       "year": 2024,
       "duration": "3 months",
-      "github": "https://github.com/ashley-chan/ecotracker",
-      "demo": "https://ecotracker-demo.netlify.app",
-      "image": "/projects/ecotracker.jpg",
-      "highlights": ["Reduced user carbon footprint by 25%", "10k+ active users", "Featured in Green Tech Magazine"]
+      "github": "https://github.com/YawnBear/taleQ",
+      "demo": "",
+      "image": "/projects/taleq.jpg",
+      "highlights": []
     },
     {
-      "id": "codecollab",
-      "title": "CodeCollab",
-      "description": "Real-time collaborative coding platform that enables multiple developers to work together seamlessly with live cursor tracking, voice chat, and integrated version control.",
-      "shortDescription": "Real-time collaborative coding platform",
-      "tech": ["TypeScript", "WebSocket", "Redis", "Docker"],
+      "id": "charitychain",
+      "title": "CharityChain",
+      "description": "A decentralized charity platform powered by Web3 technology. Charity Chain enables anyone to donate or request aid transparently using cryptocurrency.",
+      "shortDescription": "Decentralized charity platform",
+      "tech": ["JavaScript", "CSS", "HTML", "Web3", "MetaMask", "Ethereum", "Node.js", "IPFS", "Vite"],
       "color": "#9d8cc2",
-      "status": "in-progress",
+      "status": "completed",
       "year": 2024,
-      "duration": "6 months",
-      "github": "https://github.com/ashley-chan/codecollab",
-      "demo": "https://codecollab-beta.vercel.app",
-      "image": "/projects/codecollab.jpg",
-      "highlights": ["Real-time collaboration", "50ms latency", "Integrated voice chat"]
+      "duration": "3 months",
+      "github": "https://github.com/SoarAway/CharityChain",
+      "demo": "",
+      "image": "/projects/charitychain.jpg",
+      "highlights": []
     },
     {
-      "id": "artgen",
-      "title": "ArtGen AI",
-      "description": "Machine learning powered art generator that creates unique digital artwork based on user prompts, style preferences, and mood inputs using advanced neural networks.",
-      "shortDescription": "Machine learning powered art generator",
-      "tech": ["Python", "TensorFlow", "React", "FastAPI"],
+      "id": "commentsense",
+      "title": "commentsense",
+      "description": "This project provides a web-based analytics dashboard designed to measure the true quality of audience engagement on social media content.",
+      "shortDescription": "Web-based analytics dashboard",
+      "tech": ["Python", "Next.js", "React", "TypeScript"],
       "color": "#6f7d96",
       "status": "completed",
       "year": 2023,
       "duration": "4 months",
-      "github": "https://github.com/ashley-chan/artgen-ai",
-      "demo": "https://artgen-ai.herokuapp.com",
-      "image": "/projects/artgen.jpg",
-      "highlights": ["Generated 100k+ unique artworks", "AI-powered creativity", "Featured in TechCrunch"]
+      "github": "https://github.com/Wallace-Tan/commentsense",
+      "demo": "",
+      "image": "/projects/commentsense.jpg",
+      "highlights": []
     },
     {
-      "id": "cosmicplanner",
-      "title": "Cosmic Planner",
-      "description": "Space-themed productivity app that gamifies daily planning with cosmic rewards, constellation goal tracking, and a beautiful starfield interface.",
-      "shortDescription": "Space-themed productivity planner",
-      "tech": ["React Native", "Firebase", "Framer Motion"],
+      "id": "smartboss",
+      "title": "smartboss",
+      "description": "An intelligent corporate solution that helps startups and companies simulate and predict the outcomes of new business initiatives using AI.",
+      "shortDescription": "Intelligent corporate solution",
+      "tech": ["Python", "Flask", "Gemini API", "Firebase"],
       "color": "#c8ccd4",
-      "status": "prototype",
-      "year": 2024,
-      "duration": "2 months",
-      "github": "https://github.com/ashley-chan/cosmic-planner",
-      "image": "/projects/cosmic-planner.jpg",
-      "highlights": ["Mobile-first design", "Gamified planning", "Beautiful animations"]
+      "status": "completed",
+      "year": 2023,
+      "duration": "4 months",
+      "github": "https://github.com/Wallace-Tan/smartboss",
+      "demo": "",
+      "image": "/projects/smartboss.jpg",
+      "highlights": []
     }
   ],
 
@@ -206,8 +207,8 @@
     {
       "id": "github",
       "name": "GitHub",
-      "value": "ashley-chan",
-      "url": "https://github.com/ashley-chan",
+      "value": "ashley-chan-github",
+      "url": "https://github.com/SoarAway",
       "color": "#7a458c",
       "icon": "Github",
       "description": "Check out my code and projects"
@@ -215,8 +216,8 @@
     {
       "id": "linkedin", 
       "name": "LinkedIn",
-      "value": "ashley-chan-dev",
-      "url": "https://linkedin.com/in/ashley-chan-dev",
+      "value": "ashley-chan-linkedin",
+      "url": "https://linkedin.com/in/ashley-chan-li-ling",
       "color": "#9d8cc2",
       "icon": "Linkedin",
       "description": "Let's connect professionally"
@@ -225,19 +226,10 @@
       "id": "email",
       "name": "Email",
       "value": "ashley.chan@example.com",
-      "url": "mailto:ashley.chan@example.com", 
+      "url": "mailto:cashley2705@gmail.com", 
       "color": "#6f7d96",
       "icon": "Mail",
       "description": "Drop me a message anytime"
-    },
-    {
-      "id": "twitter",
-      "name": "Twitter",
-      "value": "@ashley_codes",
-      "url": "https://twitter.com/ashley_codes",
-      "color": "#c8ccd4",
-      "icon": "Twitter",
-      "description": "Follow my dev journey"
     }
   ],
 
@@ -265,6 +257,12 @@
       "name": "Contact",
       "href": "#contact",
       "description": "Get in touch with me"
+    },
+    {
+      "id": "experiments",
+      "name": "Prototype Galaxy",
+      "href": "#experiments",
+      "description": "Explore the AI-generated prototypes"
     }
   ],
 
