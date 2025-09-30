@@ -1,0 +1,128 @@
+[
+  {
+    "id": "personality",
+    "front": {
+      "title": "INTP",
+      "subtitle": "The Architect",
+      "icon": "🧠"
+    },
+    "back": {
+      "title": "The Curious Mind",
+      "description": "My personality type is INTP — curious, imaginative, and always exploring new ideas. I love diving deep into complex problems and finding creative solutions.",
+      "details": ["Loves theoretical concepts", "Enjoys debugging mysteries", "Always asking 'what if?'"]
+    },
+    "color": "#7a458c"
+  },
+  {
+    "id": "sleep",
+    "front": {
+      "title": "Sleeper Extraordinaire",
+      "subtitle": "Professional Dreamer",
+      "icon": "😴"
+    },
+    "back": {
+      "title": "Dream Architect",
+      "description": "I can sleep anywhere, anytime. My friends joke that I have a PhD in napping. Some of my best coding ideas actually come from dreams!",
+      "details": ["Can nap in 15 minutes", "Dreams in code sometimes", "Bed = favorite workspace"]
+    },
+    "color": "#9d8cc2"
+  },
+  {
+    "id": "kirby",
+    "front": {
+      "title": "Kirby's #1 Fan",
+      "subtitle": "Pink Puffball Enthusiast",
+      "icon": "🌸"
+    },
+    "back": {
+      "title": "Poyo! 💖",
+      "description": "Kirby represents everything I love: cute, powerful, and endlessly adaptable. Plus, who doesn't want to absorb skills by eating things?",
+      "details": ["Has 20+ Kirby plushies", "Speedruns Kirby games", "Kirby-themed everything"]
+    },
+    "color": "#c8ccd4"
+  },
+  {
+    "id": "coder",
+    "front": {
+      "title": "3AM Coder",
+      "subtitle": "Night Owl Developer",
+      "icon": "🌙"
+    },
+    "back": {
+      "title": "Midnight Magic",
+      "description": "My brain works best when the world is quiet. There's something magical about coding under the stars with lo-fi music playing.",
+      "details": ["Peak productivity: 11PM-3AM", "Coffee is life fuel", "Debugging by moonlight"]
+    },
+    "color": "#6f7d96"
+  },
+  {
+    "id": "plants",
+    "front": {
+      "title": "Plant Parent",
+      "subtitle": "Green Thumb Wannabe",
+      "icon": "🌱"
+    },
+    "back": {
+      "title": "Gerald & Friends",
+      "description": "I talk to my plants (especially Gerald, my fiddle leaf fig). They're great listeners and never judge my code. Currently keeping 12 plants alive!",
+      "details": ["Names all plants", "Plays music for them", "Success rate: 85%"]
+    },
+    "color": "#7a458c"
+  },
+  {
+    "id": "music",
+    "front": {
+      "title": "Lo-Fi Addict",
+      "subtitle": "Chill Beats Curator",
+      "icon": "🎵"
+    },
+    "back": {
+      "title": "Soundtrack of Code",
+      "description": "Lo-fi hip hop isn't just background music—it's my coding fuel. I've curated the perfect playlist for every type of programming task.",
+      "details": ["500+ hour playlists", "Vinyl collection growing", "Piano player since age 7"]
+    },
+    "color": "#9d8cc2"
+  },
+  {
+    "id": "food",
+    "front": {
+      "title": "Ramen Connoisseur",
+      "subtitle": "Noodle Enthusiast",
+      "icon": "🍜"
+    },
+    "back": {
+      "title": "Slurp Life",
+      "description": "I've tried 47 different ramen shops and counting. There's an art to the perfect broth-to-noodle ratio, and I'm still perfecting my technique.",
+      "details": ["Homemade broth recipes", "Chopstick master", "Spice tolerance: legendary"]
+    },
+    "color": "#c8ccd4"
+  },
+  {
+    "id": "gaming",
+    "front": {
+      "title": "Indie Game Hunter",
+      "subtitle": "Pixel Art Lover",
+      "icon": "🎮"
+    },
+    "back": {
+      "title": "Hidden Gems Collector",
+      "description": "I love discovering indie games with unique mechanics and beautiful pixel art. Currently obsessed with cozy farming sims and puzzle platformers.",
+      "details": ["Steam library: 200+ games", "Supports indie developers", "Speedrun attempts: many"]
+    },
+    "color": "#6f7d96"
+  },
+  {
+    "id": "space",
+    "front": {
+      "title": "Stargazer",
+      "subtitle": "Cosmic Dreamer",
+      "icon": "✨"
+    },
+    "back": {
+      "title": "Universe Explorer",
+      "description": "The night sky fills me with wonder and inspiration. I love learning about constellations and imagining what's out there among the stars.",
+      "details": ["Owns a telescope", "NASA news follower", "Dreams of space travel"]
+    },
+    "color": "#7a458c"
+  }
+]
