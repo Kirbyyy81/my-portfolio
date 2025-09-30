@@ -14,7 +14,7 @@ interface LandingPageProps {
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  
   const { data, loading, error } = usePortfolioData();
 
   // Show loading state
@@ -245,8 +245,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
                 initial={{ x: -30, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.6, delay: 1.2 + index * 0.1 }}
-                onHoverStart={() => setHoveredSkill(skill.name)}
-                onHoverEnd={() => setHoveredSkill(null)}
                 className="group cursor-pointer"
               >
                 <div className="flex justify-between items-center mb-2">
@@ -259,7 +257,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
                 <div className="h-3 bg-gray-200 rounded-full overflow-hidden mb-1">
                   <motion.div
                     initial={{ width: 0 }}
-                    animate={{ width: hoveredSkill === skill.name ? '100%' : `${skill.level}%` }}
+                    animate={{ width: `${skill.level}%` }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     className="h-full rounded-full transition-all duration-500"
                     style={{ backgroundColor: skill.color }}
