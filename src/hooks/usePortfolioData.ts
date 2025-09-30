@@ -88,6 +88,27 @@ interface Meta {
   lastUpdated: string;
 }
 
+interface Experiment {
+  id: string;
+  caption: string;
+  image: string;
+}
+
+interface PersonalCard {
+  id: string;
+  front: {
+    title: string;
+    subtitle: string;
+    icon: string;
+  };
+  back: {
+    title: string;
+    description: string;
+    details: string[];
+  };
+  color: string;
+}
+
 export interface PortfolioData {
   personal: Personal;
   skills: Skill[];
@@ -97,6 +118,8 @@ export interface PortfolioData {
   navigation: Navigation[];
   theme: Theme;
   meta: Meta;
+  experiments: Experiment[];
+  personalCards: PersonalCard[];
 }
 
 const usePortfolioData = () => {
@@ -173,7 +196,9 @@ const usePortfolioData = () => {
             description: "Ashley Chan - Computer Science student passionate about blending creativity with code.",
             keywords: ["Ashley Chan", "developer", "portfolio"],
             lastUpdated: "2024-12-27"
-          }
+          },
+          experiments: [],
+          personalCards: []
         };
         
         setPortfolioData(fallbackData);

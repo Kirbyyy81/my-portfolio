@@ -6,7 +6,7 @@ import CustomIllustration from './CustomIllustration';
 import usePortfolioData from '../hooks/usePortfolioData';
 import TypingAnimation from './TypingAnimation';
 import GetToKnowMe from './GetToKnowMe';
-import experimentsData from '../data/experiments.json';
+
 import SpotlightCard from './SpotlightCard';
 
 interface LandingPageProps {
@@ -134,7 +134,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mb-32 text-center"
+          className="mb-16 text-center"
         >
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="lg:w-1/2">
@@ -351,7 +351,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             </div>
             <div className="mt-12">
               <div className="flex overflow-x-auto space-x-8 pb-8 scrollbar-hide [&::-webkit-scrollbar]:hidden [-webkit-overflow-scrolling:touch] [scrollbar-width:none]">
-                {experimentsData.map((experiment) => (
+                {data.experiments.map((experiment) => (
                   <div key={experiment.id} className="flex-shrink-0 w-64">
                     <SpotlightCard className="group relative block bg-white/40 backdrop-blur-sm rounded-3xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer">
                       <img className="w-full h-40 object-cover rounded-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300" src={experiment.image} alt={experiment.caption} />
