@@ -4,55 +4,55 @@
     "front": "INTP",
     "back": "My personality type is INTP — curious, imaginative, and always exploring new ideas. I love diving deep into complex problems and finding creative solutions!",
     "icon": "🧠",
-    "color": "#3B82F6"
+    "color": "#7a458c"
   },
   {
     "id": "sleep",
     "front": "Sleeper Extraordinaire",
     "back": "I can sleep anywhere, anytime. My friends joke that I have a superpower — the ability to fall asleep in 5 minutes flat. Perfect for those late-night coding sessions!",
     "icon": "😴",
-    "color": "#10B981"
+    "color": "#9d8cc2"
   },
   {
     "id": "kirby",
     "front": "Kirby's #1 Fan",
     "back": "Kirby is my spirit animal! Round, pink, and incredibly powerful — just like how I approach coding. Plus, who doesn't love a character that can absorb new abilities?",
     "icon": "🌸",
-    "color": "#EC4899"
+    "color": "#6f7d96"
   },
   {
     "id": "korean",
     "front": "안녕하세요!",
     "back": "I'm learning Korean and love K-culture! From K-dramas to K-pop, it's opened up a whole new world of creativity and storytelling that inspires my design work.",
     "icon": "🇰🇷",
-    "color": "#F59E0B"
+    "color": "#c8ccd4"
   },
   {
     "id": "night-owl",
     "front": "Night Owl",
     "back": "My most productive hours are between 10 PM and 2 AM. There's something magical about coding under the stars — it's when my best ideas come to life!",
     "icon": "🦉",
-    "color": "#8B5CF6"
+    "color": "#7a458c"
   },
   {
     "id": "coffee",
     "front": "Bubble Tea > Coffee",
     "back": "While everyone else runs on coffee, I'm powered by bubble tea! Taro and matcha are my go-to flavors. The chewy pearls help me think better, I swear!",
     "icon": "🧋",
-    "color": "#06B6D4"
+    "color": "#9d8cc2"
   },
   {
     "id": "plants",
     "front": "Plant Parent",
     "back": "I have 12 plants and counting! Taking care of them teaches me patience and attention to detail — skills that translate perfectly to debugging code.",
     "icon": "🌱",
-    "color": "#059669"
+    "color": "#6f7d96"
   },
   {
     "id": "space",
     "front": "Space Dreamer",
     "back": "I'm fascinated by space and astronomy. The vastness of the universe reminds me that there's always more to learn and explore — both in space and in code!",
     "icon": "🚀",
-    "color": "#6366F1"
+    "color": "#c8ccd4"
   }
 ]
