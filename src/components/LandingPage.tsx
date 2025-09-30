@@ -5,6 +5,7 @@ import FloatingShapes from './FloatingShapes';
 import CustomIllustration from './CustomIllustration';
 import usePortfolioData from '../hooks/usePortfolioData';
 import TypingAnimation from './TypingAnimation';
+import GetToKnowMe from './GetToKnowMe';
 import experimentsData from '../data/experiments.json';
 import SpotlightCard from './SpotlightCard';
 
@@ -165,6 +166,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             </div>
           </div>
         </motion.section>
+
+        {/* Get to Know Me Section */}
+        <GetToKnowMe />
 
         {/* Projects Section */}
         <motion.section
