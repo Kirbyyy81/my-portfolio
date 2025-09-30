@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 
 interface TypingAnimationProps {
   text: string;
@@ -8,24 +7,35 @@ interface TypingAnimationProps {
 }
 
 const TypingAnimation: React.FC<TypingAnimationProps> = ({ text, className }) => {
-  const variants = {
-    hidden: { opacity: 0 },
-    visible: (i: number) => ({
-      opacity: 1,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.1,
-      },
-    }),
-  };
+  const [displayedText, setDisplayedText] = useState('');
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const type = async () => {
+      await controls.start({ opacity: 1, transition: { duration: 0 } });
+      for (let i = 0; i <= text.length; i++) {
+        setDisplayedText(text.slice(0, i));
+        await new Promise((resolve) => setTimeout(resolve, 150));
+      }
+    };
+    type();
+  }, [text, controls]);
 
   return (
-    <motion.div className={className}>
-      {text.split('').map((char, i) => (
-        <motion.span key={i} custom={i} initial="hidden" animate="visible" variants={variants}>
-          {char}
-        </motion.span>
-      ))}
+    <motion.div className={className} initial={{ opacity: 0 }} animate={controls}>
+      {displayedText}
+      <motion.span
+        style={{
+          display: 'inline-block',
+          width: '2px',
+          height: '1em',
+          backgroundColor: 'currentColor',
+          marginLeft: '4px',
+          verticalAlign: 'bottom',
+        }}
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ duration: 0.8, repeat: Infinity }}
+      />
     </motion.div>
   );
 };
