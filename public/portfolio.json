@@ -19,6 +19,15 @@
       "description": "Building modern, interactive user interfaces"
     },
     {
+      "id": "nextjs",
+      "name": "Next.js",
+      "level": 85,
+      "color": "#9d8cc2",
+      "category": "Frontend",
+      "years": 2,
+      "description": "Server-side rendering and static site generation"
+    },
+    {
       "id": "typescript",
       "name": "TypeScript", 
       "level": 85,
@@ -46,6 +55,33 @@
       "description": "Data science and web development"
     },
     {
+      "id": "flask",
+      "name": "Flask",
+      "level": 75,
+      "color": "#6f7d96",
+      "category": "Backend",
+      "years": 2,
+      "description": "Micro web framework for Python"
+    },
+    {
+      "id": "firebase",
+      "name": "Firebase",
+      "level": 70,
+      "color": "#c8ccd4",
+      "category": "Backend",
+      "years": 1,
+      "description": "Backend-as-a-Service platform"
+    },
+    {
+      "id": "web3",
+      "name": "Web3",
+      "level": 70,
+      "color": "#c8ccd4",
+      "category": "Backend",
+      "years": 1,
+      "description": "Decentralized applications and blockchain integration"
+    },
+    {
       "id": "uiux",
       "name": "UI/UX Design",
       "level": 75,
@@ -53,15 +89,6 @@
       "category": "Design",
       "years": 2,
       "description": "Creating intuitive user experiences"
-    },
-    {
-      "id": "graphql",
-      "name": "GraphQL",
-      "level": 70,
-      "color": "#6f7d96",
-      "category": "Backend", 
-      "years": 1,
-      "description": "Flexible API query language"
     },
     {
       "id": "figma",
@@ -73,13 +100,13 @@
       "description": "Design and prototyping tool"
     },
     {
-      "id": "java",
-      "name": "Java",
-      "level": 78,
-      "color": "#7a458c",
-      "category": "Backend",
-      "years": 3,
-      "description": "Object-oriented programming"
+      "id": "vercel",
+      "name": "Vercel",
+      "level": 80,
+      "color": "#6f7d96",
+      "category": "Deployment",
+      "years": 2,
+      "description": "Platform for frontend developers"
     }
   ],
 
@@ -95,7 +122,7 @@
       "year": 2024,
       "duration": "3 months",
       "github": "https://github.com/YawnBear/taleQ",
-      "demo": "",
+      "demo": "https://tale-q.vercel.app/",
       "image": "/projects/taleq.jpg",
       "highlights": []
     },
@@ -110,7 +137,7 @@
       "year": 2024,
       "duration": "3 months",
       "github": "https://github.com/SoarAway/CharityChain",
-      "demo": "",
+      "demo": "https://charitychain-theta.vercel.app/",
       "image": "/projects/charitychain.jpg",
       "highlights": []
     },
@@ -125,7 +152,7 @@
       "year": 2023,
       "duration": "4 months",
       "github": "https://github.com/Wallace-Tan/commentsense",
-      "demo": "",
+      "demo": "https://commentsense-green.vercel.app/",
       "image": "/projects/commentsense.jpg",
       "highlights": []
     },
