@@ -116,7 +116,7 @@
       "title": "taleQ",
       "description": "An AI-powered talent acquisition system designed to streamline resume screening and HR workflow.",
       "shortDescription": "AI-powered talent acquisition system",
-      "tech": ["React.js", "Next.js", "Google Gemini API", "JamAI Base", "Vercel"]
+      "tech": ["React.js", "Next.js", "Google Gemini API", "JamAI Base", "Vercel"],
       "color": "#7a458c",
       "status": "completed",
       "year": 2024,
@@ -333,16 +333,6 @@
     "id": "v7",
     "caption": "v7 – Chaos Nebula (too many colors)",
     "image": "https://placehold.co/600x400/000000/FFFFFF?text=v7"
-  },
-  {
-    "id": "v9",
-    "caption": "v9 – The Void (blank screen)",
-    "image": "https://placehold.co/600x400/000000/FFFFFF?text=v9"
-  },
-  {
-    "id": "v11",
-    "caption": "v11 – The Matrix (too much text)",
-    "image": "https://placehold.co/600x400/000000/FFFFFF?text=v11"
   }
 ],
   "tools": [
@@ -459,48 +449,6 @@
       "details": ["Peak productivity: 11PM-3AM", "Coffee is life fuel", "Debugging by moonlight"]
     },
     "color": "#6f7d96"
-  },
-  {
-    "id": "plants",
-    "front": {
-      "title": "Plant Parent",
-      "subtitle": "Green Thumb Wannabe",
-      "icon": "🌱"
-    },
-    "back": {
-      "title": "Gerald & Friends",
-      "description": "I talk to my plants (especially Gerald, my fiddle leaf fig). They're great listeners and never judge my code. Currently keeping 12 plants alive!",
-      "details": ["Names all plants", "Plays music for them", "Success rate: 85%"]
-    },
-    "color": "#7a458c"
-  },
-  {
-    "id": "music",
-    "front": {
-      "title": "Lo-Fi Addict",
-      "subtitle": "Chill Beats Curator",
-      "icon": "🎵"
-    },
-    "back": {
-      "title": "Soundtrack of Code",
-      "description": "Lo-fi hip hop isn't just background music—it's my coding fuel. I've curated the perfect playlist for every type of programming task.",
-      "details": ["500+ hour playlists", "Vinyl collection growing", "Piano player since age 7"]
-    },
-    "color": "#9d8cc2"
-  },
-  {
-    "id": "food",
-    "front": {
-      "title": "Ramen Connoisseur",
-      "subtitle": "Noodle Enthusiast",
-      "icon": "🍜"
-    },
-    "back": {
-      "title": "Slurp Life",
-      "description": "I've tried 47 different ramen shops and counting. There's an art to the perfect broth-to-noodle ratio, and I'm still perfecting my technique.",
-      "details": ["Homemade broth recipes", "Chopstick master", "Spice tolerance: legendary"]
-    },
-    "color": "#c8ccd4"
   },
   {
     "id": "gaming",
