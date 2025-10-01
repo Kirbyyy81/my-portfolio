@@ -116,7 +116,7 @@
       "title": "taleQ",
       "description": "An AI-powered talent acquisition system designed to streamline resume screening and HR workflow.",
       "shortDescription": "AI-powered talent acquisition system",
-      "tech": ["React.js", "Next.js", "Google Gemini API", "JamAI Base", "Vercel"],
+      "tech": ["React.js", "Next.js", "Google Gemini API", "JamAI Base", "Vercel"]
       "color": "#7a458c",
       "status": "completed",
       "year": 2024,
