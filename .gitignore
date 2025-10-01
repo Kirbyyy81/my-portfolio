@@ -22,3 +22,5 @@ dist-ssr
 *.sw?
 .env
 .vercel
+public/desktop.ini
+public/v2 graph.png

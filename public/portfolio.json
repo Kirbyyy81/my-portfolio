@@ -119,7 +119,7 @@
       "title": "commentsense",
       "description": "This project provides a web-based analytics dashboard designed to measure the true quality of audience engagement on social media content.",
       "shortDescription": "Web-based analytics dashboard",
-      "tech": ["Python", "Next.js", "React", "TypeScript"]
+      "tech": ["Python", "Next.js", "React", "TypeScript"], 
       "color": "#6f7d96",
       "status": "completed",
       "year": 2023,
