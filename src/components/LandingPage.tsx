@@ -308,36 +308,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             })}
           </div>
           
-          {/* Additional hobbies section */}
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.4 }}
-            className="mt-20"
-          >
-            <h3 className="text-2xl font-bold text-center text-gray-800 mb-8">
-              When I'm not coding...
-            </h3>
-            <div className="flex justify-center flex-wrap gap-4 max-w-2xl mx-auto">
-              {data.hobbies.slice(0, 6).map((hobby, index) => (
-                <motion.div
-                  key={hobby.id}
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 1.5 + index * 0.1 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="bg-white/40 backdrop-blur-sm px-4 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group"
-                  style={{ borderLeft: `4px solid ${hobby.color}` }}
-                  title={hobby.description}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg group-hover:scale-110 transition-transform">{hobby.icon}</span>
-                    <span className="text-sm font-medium text-gray-700 group-hover:text-gray-800">{hobby.name}</span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
         </motion.section>
         {/* AI Experiments Section */}
         <motion.section
@@ -351,7 +321,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             {/* Section Header */}
             <div className="text-center">
               <h2 className="text-5xl font-bold text-gray-800 mb-4 font-chewy">
-                ✨ AI Experiments
+                AI Experiments
               </h2>
               <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
                 This portfolio was built through AI-driven experiments — a journey of inspirations, failed prototypes, and iterations. Here, I’ve gathered the past attempts that shaped the final design, showcasing the creative process behind Ashley’s World.
@@ -360,9 +330,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             
             {/* Past Attempts Gallery */}
             <div className="mt-12">
-              <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">
+              <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center">
                 The Evolution Journey
-              </h3>
+              </h2>
               <div className="flex overflow-x-auto space-x-8 pb-8 scrollbar-hide [&::-webkit-scrollbar]:hidden [-webkit-overflow-scrolling:touch] [scrollbar-width:none]">
                 {data.experiments.map((experiment) => (
                   <div key={experiment.id} className="flex-shrink-0 w-64">
@@ -382,7 +352,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             <div className="mt-20">
               <div className="text-center mb-12">
                 <h3 className="text-3xl font-bold text-gray-800 mb-4 font-chewy">
-                  🛠️ Tools That Powered the Journey
+                  AI and Development Tools
                 </h3>
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   Behind every experiment and iteration, these tools were the driving force that brought Ashley's World to life.

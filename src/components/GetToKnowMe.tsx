@@ -91,6 +91,36 @@ const GetToKnowMe: React.FC = () => {
           ))}
         </div>
       </div>
+                {/* Additional hobbies section */}
+          <motion.div
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.4 }}
+            className="mt-20"
+          >
+            <h3 className="text-2xl font-bold text-center text-gray-800 mb-8">
+              When I'm not coding...
+            </h3>
+            <div className="flex justify-center flex-wrap gap-4 max-w-2xl mx-auto">
+              {data.hobbies.slice(0, 6).map((hobby, index) => (
+                <motion.div
+                  key={hobby.id}
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 1.5 + index * 0.1 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="bg-white/40 backdrop-blur-sm px-4 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group"
+                  style={{ borderLeft: `4px solid ${hobby.color}` }}
+                  title={hobby.description}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg group-hover:scale-110 transition-transform">{hobby.icon}</span>
+                    <span className="text-sm font-medium text-gray-700 group-hover:text-gray-800">{hobby.name}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
     </motion.section>
   );
 };

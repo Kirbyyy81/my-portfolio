@@ -1,14 +1,13 @@
 # Ashley's World
 
-This is my personal portfolio website, designed to showcase my projects, skills, and personality as a Computer Science student.
-It’s a creative mix of a **modern landing page** and an **interactive galaxy graph** view.
+This is my personal portfolio website, designed to showcase my projects, skills, and personality as a Computer Science student. It features an updated favicon, visually appealing skill logos, and displays all my projects. It’s a creative mix of a **modern landing page** and an **interactive galaxy graph** view.
 ---
 
 ## 🛠️ Tech Stack
 
 * **Frontend**: React.js / Next.js
 * **Styling**: TailwindCSS + custom CSS
-* **Animations**: [ReactBits](https://reactbits.dev/), Framer Motion
+* **Animations**: Framer Motion
 * **Graph Simulation**: react-force-graph (with galaxy styling)
 * **Data**: Centralized JSON for projects, skills, hobbies, and contact info
 
@@ -47,7 +46,7 @@ portfolio/
 │── src/
 │   ├── components/   # Reusable UI components
 │   ├── pages/        # Landing page + Galaxy graph page
-│   ├── data/         # Centralized JSON file (skills, projects, hobbies, etc.)
+
 │   ├── styles/       # Global & component-specific styles
 │── README.md         # Project documentation
 ```
@@ -56,7 +55,7 @@ portfolio/
 
 ## 📬 Contact Me
 
-* 🌐 Github: [github.com/SoarAway](https://github.com/SoarAway)
+* 🌐 Github: [github.com/Kirbyyy81](https://github.com/Kirbyyy81/my-portfolio.git)
 * 📧 Email: [ashleyc.work27@gmail.com](mailto:ashleyc.work27@gmail.com)
 * 💼 LinkedIn: [linkedin.com/in/ashleychan](https://linkedin.com/in/ashley-chan-li-ling)
 
