@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Twitter, Sparkles, Star, Heart } from 'lucide-react';
 import FloatingShapes from '../components/FloatingShapes';
@@ -117,14 +117,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
       </header>
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 py-4 bg-white/80 backdrop-blur-md shadow-sm transition-all duration-300">
+      <nav className="relative z-10 py-8">
         <motion.div
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex justify-center"
         >
-          <div className="flex flex-wrap justify-center gap-8 bg-white/30 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg">
+          <div className={`flex flex-wrap justify-center gap-8 rounded-full px-8 py-4 transition-all duration-300 ${scrolledDown ? 'bg-white/80 backdrop-blur-md shadow-xl' : 'bg-white/30 backdrop-blur-sm shadow-lg'}`}>
             {data.navigation.map((item, index) => (
               <motion.a
                 key={item.id}
