@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import LandingPage from './components/LandingPage';
-import GraphView from './components/GraphView';
+import LandingPage from './pages/LandingPage';
+import GraphView from './pages/GraphView';
 import { AnimatePresence } from 'framer-motion';
 
 function App() {

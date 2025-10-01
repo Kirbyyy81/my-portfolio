@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Twitter, Sparkles, Star, Heart } from 'lucide-react';
-import FloatingShapes from './FloatingShapes';
-import CustomIllustration from './CustomIllustration';
+import FloatingShapes from '../components/FloatingShapes';
+import CustomIllustration from '../components/CustomIllustration';
 import usePortfolioData from '../hooks/usePortfolioData';
-import TypingAnimation from './TypingAnimation';
+import TypingAnimation from '../components/TypingAnimation';
 import GetToKnowMe from './GetToKnowMe';
-import ToolCard from './ToolCard';
+import ToolCard from '../components/ToolCard';
 
-import SpotlightCard from './SpotlightCard';
+import SpotlightCard from '../components/SpotlightCard';
 
 interface LandingPageProps {
   onToggle: () => void;

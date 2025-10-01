@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import FlipCard from './FlipCard';
+import FlipCard from '../components/FlipCard';
 
 interface CardData {
   id: string;
