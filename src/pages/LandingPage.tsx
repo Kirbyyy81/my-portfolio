@@ -15,6 +15,22 @@ interface LandingPageProps {
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
+  const [scrolledDown, setScrolledDown] = useState(false);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) { // Adjust this value as needed
+        setScrolledDown(true);
+      } else {
+        setScrolledDown(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   
   const { data, loading, error } = usePortfolioData();
 
@@ -108,7 +124,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex justify-center"
         >
-          <div className="flex flex-wrap justify-center gap-8 bg-white/30 backdrop-blur-sm rounded-full px-8 py-4 shadow-lg">
+          <div className={`flex flex-wrap justify-center gap-8 rounded-full px-8 py-4 transition-all duration-300 ${scrolledDown ? 'bg-white/80 backdrop-blur-md shadow-xl' : 'bg-white/30 backdrop-blur-sm shadow-lg'}`}>
             {data.navigation.map((item, index) => (
               <motion.a
                 key={item.id}
