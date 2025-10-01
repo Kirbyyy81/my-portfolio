@@ -290,22 +290,22 @@
   {
     "id": "v1",
     "caption": "Inspiration from pinterest",
-    "image": ""
+    "image": "/public/inspiration.jpg"
   },
   {
     "id": "v3",
-    "caption": "v3 – Node Overload (everything crammed)",
-    "image": "https://placehold.co/600x400/000000/FFFFFF?text=v3"
+    "caption": "Past Attempts",
+    "image": "/public/process.png"
   },
   {
     "id": "v5",
-    "caption": "v5 – Lost in Orbit (no navigation)",
-    "image": "https://placehold.co/600x400/000000/FFFFFF?text=v5"
+    "caption": "Failed Graph",
+    "image": "/public/v2 graph.png"
   },
   {
     "id": "v7",
-    "caption": "v7 – Chaos Nebula (too many colors)",
-    "image": "https://placehold.co/600x400/000000/FFFFFF?text=v7"
+    "caption": "Github Commits",
+    "image": "/public/github.png"
   }
 ],
   "tools": [
