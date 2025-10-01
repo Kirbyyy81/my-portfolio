@@ -6,6 +6,7 @@ import CustomIllustration from './CustomIllustration';
 import usePortfolioData from '../hooks/usePortfolioData';
 import TypingAnimation from './TypingAnimation';
 import GetToKnowMe from './GetToKnowMe';
+import ToolCard from './ToolCard';
 
 import SpotlightCard from './SpotlightCard';
 
@@ -339,17 +340,29 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
           </motion.div>
         </motion.section>
         {/* AI Experiments Section */}
-        <div id="experiments" className="py-16 sm:py-24">
+        <motion.section
+          id="experiments"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.4 }}
+          className="py-16 sm:py-24"
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Section Header */}
             <div className="text-center">
-              <h2 className="text-3xl font-extrabold text-gray-800 sm:text-4xl">
-                <span role="img" aria-label="sparkles"></span> AI Experiments
+              <h2 className="text-5xl font-bold text-gray-800 mb-4 font-chewy">
+                ✨ AI Experiments
               </h2>
               <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
                 This portfolio was built through AI-driven experiments — a journey of inspirations, failed prototypes, and iterations. Here, I’ve gathered the past attempts that shaped the final design, showcasing the creative process behind Ashley’s World.
               </p>
             </div>
+            
+            {/* Past Attempts Gallery */}
             <div className="mt-12">
+              <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">
+                The Evolution Journey
+              </h3>
               <div className="flex overflow-x-auto space-x-8 pb-8 scrollbar-hide [&::-webkit-scrollbar]:hidden [-webkit-overflow-scrolling:touch] [scrollbar-width:none]">
                 {data.experiments.map((experiment) => (
                   <div key={experiment.id} className="flex-shrink-0 w-64">
@@ -364,8 +377,26 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
                 ))}
               </div>
             </div>
+            
+            {/* Tools Used Section */}
+            <div className="mt-20">
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-bold text-gray-800 mb-4 font-chewy">
+                  🛠️ Tools That Powered the Journey
+                </h3>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  Behind every experiment and iteration, these tools were the driving force that brought Ashley's World to life.
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {data.tools.map((tool, index) => (
+                  <ToolCard key={tool.id} tool={tool} index={index} />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+        </motion.section>
       </main>
     </motion.div>
   );

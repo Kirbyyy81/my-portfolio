@@ -94,6 +94,15 @@ interface Experiment {
   image: string;
 }
 
+interface Tool {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  color: string;
+  category: string;
+}
+
 interface PersonalCard {
   id: string;
   front: {
@@ -119,6 +128,7 @@ export interface PortfolioData {
   theme: Theme;
   meta: Meta;
   experiments: Experiment[];
+  tools: Tool[];
   personalCards: PersonalCard[];
 }
 
