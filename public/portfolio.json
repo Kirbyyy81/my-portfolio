@@ -345,6 +345,64 @@
     "image": "https://placehold.co/600x400/000000/FFFFFF?text=v11"
   }
 ],
+  "tools": [
+    {
+      "id": "bolt",
+      "name": "Bolt",
+      "description": "The foundation builder that created the base structure of this website. Bolt provided the initial scaffolding and core components.",
+      "icon": "⚡",
+      "color": "#7a458c",
+      "category": "Development"
+    },
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT",
+      "description": "The creative prompt generator that helped brainstorm ideas and create detailed prompts for other AI tools in the development process.",
+      "icon": "🤖",
+      "color": "#9d8cc2",
+      "category": "AI Assistant"
+    },
+    {
+      "id": "warp",
+      "name": "Warp",
+      "description": "The refinement specialist used for polishing code, fixing bugs, and making incremental improvements throughout development.",
+      "icon": "🚀",
+      "color": "#6f7d96",
+      "category": "Development"
+    },
+    {
+      "id": "gemini-cli",
+      "name": "Gemini CLI",
+      "description": "The feature architect that transformed prompts into new functionality and refined existing features with precision.",
+      "icon": "💎",
+      "color": "#c8ccd4",
+      "category": "AI Assistant"
+    },
+    {
+      "id": "pinterest",
+      "name": "Pinterest",
+      "description": "The inspiration curator that provided endless UI design ideas, color palettes, and creative direction for the visual aesthetic.",
+      "icon": "📌",
+      "color": "#7a458c",
+      "category": "Design"
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "description": "The collaboration hub for version control, code storage, and tracking the evolution of this portfolio project.",
+      "icon": "🐙",
+      "color": "#9d8cc2",
+      "category": "Development"
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel",
+      "description": "The deployment platform that brings this portfolio to life on the web with seamless hosting and continuous deployment.",
+      "icon": "▲",
+      "color": "#6f7d96",
+      "category": "Deployment"
+    }
+  ],
 "personalCards": [
   {
     "id": "personality",
