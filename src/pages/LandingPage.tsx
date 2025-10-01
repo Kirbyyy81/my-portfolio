@@ -9,6 +9,7 @@ import GetToKnowMe from './GetToKnowMe';
 import ToolCard from '../components/ToolCard';
 
 import SpotlightCard from '../components/SpotlightCard';
+import ImageModal from '../components/ImageModal';
 
 interface LandingPageProps {
   onToggle: () => void;
@@ -16,6 +17,7 @@ interface LandingPageProps {
 
 const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
   const [scrolledDown, setScrolledDown] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -164,7 +166,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
               <p className="text-xl text-gray-600 leading-relaxed mb-8">
                 {data.personal.bio}
               </p>
-              <div className="flex gap-4">
+              {/* <div className="flex gap-4">
                 <motion.button
                   whileHover={{ scale: 1.05, rotate: 5 }}
                   whileTap={{ scale: 0.95 }}
@@ -179,7 +181,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
                 >
                   Let's Chat
                 </motion.button>
-              </div>
+              </div> */}
             </div>
           </div>
         </motion.section>
@@ -315,7 +317,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
               <div className="flex overflow-x-auto space-x-8 pb-8 scrollbar-hide [&::-webkit-scrollbar]:hidden [-webkit-overflow-scrolling:touch] [scrollbar-width:none]">
                 {data.experiments.map((experiment) => (
                   <div key={experiment.id} className="flex-shrink-0 w-64">
-                    <SpotlightCard className="group relative block bg-white/40 backdrop-blur-sm rounded-3xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer">
+                    <SpotlightCard 
+                      className="group relative block bg-white/40 backdrop-blur-sm rounded-3xl p-4 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
+                      onClick={() => setSelectedImage(experiment.image)}
+                    >
                       <img className="w-full h-40 object-cover rounded-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300" src={experiment.image} alt={experiment.caption} />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-3xl"></div>
                       <div className="absolute bottom-0 left-0 p-4">
@@ -346,45 +351,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             </div>
           </div>
         </motion.section>
-
-        {/* Contact Section */}
-        <motion.section
-          id="contact"
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="text-center"
-        >
-          <h2 className="text-5xl font-bold text-gray-800 mb-8">
-            Let's Create Together
-          </h2>
-          <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-            I'm always excited to work on new projects and connect with fellow creators. 
-            Whether you have an idea to bring to life or just want to chat about tech and design!
-          </p>
-          <div className="flex justify-center gap-8">
-            {data.contact.slice(0, 3).map((contact, index) => {
-              const IconComponent = getIconComponent(contact.icon);
-              return (
-                <motion.a
-                  key={contact.id}
-                  href={contact.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300 group"
-                  style={{ backgroundColor: contact.color }}
-                  title={contact.description}
-                >
-                  <IconComponent className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
-                </motion.a>
-              );
-            })}
-          </div>
-          
-        </motion.section>
       </main>
+
+      {selectedImage && (
+        <ImageModal src={selectedImage} alt="Selected Experiment" onClose={() => setSelectedImage(null)} />
+      )}
     </motion.div>
   );
 };
