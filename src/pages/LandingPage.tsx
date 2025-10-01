@@ -193,7 +193,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="mb-32"
+          className="mb-16"
         >
           <h2 className="text-5xl font-bold text-center text-gray-800 mb-16">
             Featured Projects
@@ -250,7 +250,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="mb-32"
+          className="mb-16"
         >
           <h2 className="text-5xl font-bold text-center text-gray-800 mb-16">
             Skills & Expertise
@@ -287,44 +287,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             ))}
           </div>
         </motion.section>
-
-        {/* Contact Section */}
-        <motion.section
-          id="contact"
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="text-center"
-        >
-          <h2 className="text-5xl font-bold text-gray-800 mb-8">
-            Let's Create Together
-          </h2>
-          <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-            I'm always excited to work on new projects and connect with fellow creators. 
-            Whether you have an idea to bring to life or just want to chat about tech and design!
-          </p>
-          <div className="flex justify-center gap-8">
-            {data.contact.slice(0, 3).map((contact, index) => {
-              const IconComponent = getIconComponent(contact.icon);
-              return (
-                <motion.a
-                  key={contact.id}
-                  href={contact.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300 group"
-                  style={{ backgroundColor: contact.color }}
-                  title={contact.description}
-                >
-                  <IconComponent className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
-                </motion.a>
-              );
-            })}
-          </div>
-          
-        </motion.section>
+        
         {/* AI Experiments Section */}
         <motion.section
           id="experiments"
@@ -367,9 +330,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
             {/* Tools Used Section */}
             <div className="mt-20">
               <div className="text-center mb-12">
-                <h3 className="text-3xl font-bold text-gray-800 mb-4 font-chewy">
+                <h2 className="text-3xl font-bold text-gray-800 mb-4 font-chewy">
                   AI and Development Tools
-                </h3>
+                </h2>
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   Behind every experiment and iteration, these tools were the driving force that brought Ashley's World to life.
                 </p>
@@ -382,6 +345,44 @@ const LandingPage: React.FC<LandingPageProps> = ({ onToggle }) => {
               </div>
             </div>
           </div>
+        </motion.section>
+
+        {/* Contact Section */}
+        <motion.section
+          id="contact"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="text-center"
+        >
+          <h2 className="text-5xl font-bold text-gray-800 mb-8">
+            Let's Create Together
+          </h2>
+          <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+            I'm always excited to work on new projects and connect with fellow creators. 
+            Whether you have an idea to bring to life or just want to chat about tech and design!
+          </p>
+          <div className="flex justify-center gap-8">
+            {data.contact.slice(0, 3).map((contact, index) => {
+              const IconComponent = getIconComponent(contact.icon);
+              return (
+                <motion.a
+                  key={contact.id}
+                  href={contact.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.2, rotate: 10 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300 group"
+                  style={{ backgroundColor: contact.color }}
+                  title={contact.description}
+                >
+                  <IconComponent className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
+                </motion.a>
+              );
+            })}
+          </div>
+          
         </motion.section>
       </main>
     </motion.div>

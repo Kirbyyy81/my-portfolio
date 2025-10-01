@@ -73,24 +73,6 @@
       "description": "Backend-as-a-Service platform"
     },
     {
-      "id": "web3",
-      "name": "Web3",
-      "level": 70,
-      "color": "#c8ccd4",
-      "category": "Backend",
-      "years": 1,
-      "description": "Decentralized applications and blockchain integration"
-    },
-    {
-      "id": "uiux",
-      "name": "UI/UX Design",
-      "level": 75,
-      "color": "#9d8cc2",
-      "category": "Design",
-      "years": 2,
-      "description": "Creating intuitive user experiences"
-    },
-    {
       "id": "figma",
       "name": "Figma",
       "level": 85,
@@ -98,15 +80,6 @@
       "category": "Design",
       "years": 3,
       "description": "Design and prototyping tool"
-    },
-    {
-      "id": "vercel",
-      "name": "Vercel",
-      "level": 80,
-      "color": "#6f7d96",
-      "category": "Deployment",
-      "years": 2,
-      "description": "Platform for frontend developers"
     }
   ],
 
@@ -316,8 +289,8 @@
   "experiments": [
   {
     "id": "v1",
-    "caption": "v1 – The Black Hole (too empty)",
-    "image": "https://placehold.co/600x400/000000/FFFFFF?text=v1"
+    "caption": "Inspiration from pinterest",
+    "image": ""
   },
   {
     "id": "v3",
@@ -448,7 +421,7 @@
       "description": "My brain works best when the world is quiet. There's something magical about coding under the stars with lo-fi music playing.",
       "details": ["Peak productivity: 11PM-3AM", "Coffee is life fuel", "Debugging by moonlight"]
     },
-    "color": "#6f7d96"
+    "color": "#9d8cc2"
   },
   {
     "id": "gaming",
